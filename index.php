@@ -1,10 +1,14 @@
 <?php
-	$file = isset($_GET['file']) ? substr($_GET['file'], 1) : false;
+	$file = isset($_GET['file']) ? ($_GET['file'][0] == '/' ? substr($_GET['file'], 1) : $_GET['file']): false;
 	if(!$file) {
 		$file = 'Project Name';
-	//	header('location:index.php?file=/Project Name');// . uniqid());
-//		die();
+		header('location:index.php?file=' . uniqid());
+		die();
 	}
+	
+	//oauth secret
+	//MlHWRMVEi9FjdH8ADzCy01sm
+	
 
 ?>
 <html>
