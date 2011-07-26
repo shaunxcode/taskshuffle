@@ -3,7 +3,7 @@ $(function(){
 	
 	$('.NewTask').keypress(function(e) {
 		if(e.keyCode == 13) {
-			$('.TaskList').prepend($('<li />')
+			$('<li />')
 				.html($('<button />').button({
 						icons: {
 							primary: 'ui-icon-check'
@@ -14,7 +14,10 @@ $(function(){
 						$('div', $(this).parent()).addClass('TaskComplete');
 						$(this).button('disable');
 					}))
-				.append($('<div />').text($(this).val())));
+				.append($('<div />').text($(this).val()))
+				.hide()
+				.prependTo('.TaskList')
+				.fadeIn('slow');
 			$(this).val('');
 		}
 	});
