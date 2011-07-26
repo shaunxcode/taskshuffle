@@ -20,20 +20,32 @@
 	<script type="text/javascript" src="js/taskshuffle.js"></script>
 	<script type="text/javascript">
 		$(function(){
-			PS.name = <?php echo json_encode($file); ?>;
+			TS.name = <?php echo json_encode($file); ?>;
 		})
 	</script>
 	<style>
 	    .NewTask { width: 100%; font-family: inherit; font-size: 3em;}
-		.TaskList { font-size: 3em; }
+		.TaskList { 
+			padding: 0;
+			font-size: 3em; 
+			list-style-type: none;
+		}
+		
+		.TaskList button.ui-button { width: .8em; margin-right: .3em;}
+		.TaskList button span.ui-button-icon-primary { left: 0.2em;}
+		.TaskList li div { cursor: move; display: inline-block;}
+
+		.TaskList .TaskComplete { 
+			text-decoration: line-through;
+			color: #ccc;
+		}
+
 	</style>
 </head>
 <body>
 	<div class="container">
 		<input class="NewTask">
-		<ul class="TaskList">
-	  		<li>Task</li>
-		</ul>
+		<ul class="TaskList"></ul>
 	</div>
 </body>
 </html>
