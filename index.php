@@ -2,7 +2,7 @@
 	$file = isset($_GET['file']) ? ($_GET['file'][0] == '/' ? substr($_GET['file'], 1) : $_GET['file']): false;
 	if(!$file) {
 		$file = 'Project Name';
-		header('location:index.php?file=' . uniqid());
+		header('location:/' . uniqid());
 		die();
 	}
 	
