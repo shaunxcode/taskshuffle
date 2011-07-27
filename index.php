@@ -25,31 +25,30 @@
 	<script type="text/javascript">
 		$(function(){
 			TS.name = <?php echo json_encode($file); ?>;
+			$('.ShuffleName').val(TS.name);
 		})
 	</script>
-	<style>
-	    .NewTask { width: 100%; font-family: inherit; font-size: 3em;}
-		.TaskList { 
-			padding: 0;
-			font-size: 3em; 
-			list-style-type: none;
-		}
-		
-		.TaskList button.ui-button { width: .8em; margin-right: .3em;}
-		.TaskList button span.ui-button-icon-primary { left: 0.2em;}
-		.TaskList li div { cursor: move; display: inline-block;}
-
-		.TaskList .TaskComplete { 
-			text-decoration: line-through;
-			color: #ccc;
-		}
-
-	</style>
 </head>
 <body>
 	<div class="container">
-		<input class="NewTask">
-		<ul class="TaskList"></ul>
+		<div class="Header">
+			<img src="images/title.png">
+			<input class="ShuffleName Rounded">
+			<div class="clear"></div>
+		</div>
+		<div class="SubTitle"><img src="images/subtitle.png"></div>
+		<input class="NewTask Rounded">
+		<div class="TaskListButtons">
+			<span id="clearFinished">
+				<img src="images/clear_finished.png" />
+				Clear Finished
+			</span>
+			<span id="clearAll">
+				<img src="images/clear_all.png" />
+				Clear All
+			</span>
+		</div>
+		<ul class="TaskList Rounded"></ul>
 	</div>
 </body>
 </html>

@@ -21,16 +21,13 @@ $(function(){
 		drawTask: function(item) {
 			$('<li />')
 				.attr('id', 'task-' + item.id)
-				.html($('<button />').button({
-						icons: {
-							primary: 'ui-icon-check'
-						}
-					})
+				.html($('<img />').attr('src', 'images/box_empty.png')
 					.click(function() {
 						item.complete = true;
 						TS.save(item);
 					}))
-				.append($('<div />').text(item.task))
+				.append($('<div />').addClass('TaskContent').text(item.task))
+				.append($('<div />').addClass('clear'))
 				.hide()
 				.prependTo('.TaskList')
 				.fadeIn('slow');
@@ -109,18 +106,32 @@ $(function(){
 			TS.active = false;
 		})
 	
-	$('.NewTask').keypress(function(e) {
-		if(e.keyCode == 13) {
-			TS.save({
-				user: TS.user, 
-				task: $(this).val(), 
-				complete: false});
+	$('.NewTask')
+		.keypress(function(e) {
+			if(e.keyCode == 13) {
+				TS.save({
+					user: TS.user, 
+					task: $(this).val(), 
+					complete: false});
 				
-			$(this).val('');
-		}
+				$(this).val('');
+			}
+		})
+		.val('Start typing a new item here...')
+		.focus(function(){
+			if(!$(this).data('firstTime')) {
+				$(this).val('').data('firstTime', true);
+			}
+		})
+	
+	$('#clearFinished').click(function(){
+		confirm('Are you sure you want to clear all finished tasks?');
+	});
+	
+	$('#clearAll').click(function(){
+		confirm('Are you sure you want to clear all tasks?');
 	});
 	
 	$('.TaskList').sortable();
-	$('.NewTask').focus();
 	TS.connect();
 });

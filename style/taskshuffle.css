@@ -1,484 +1,77 @@
-#AppContainer { 
-	height: 100%;
-}
-
-#wrap { 
-	background-image: url(../images/gradient-slice.png);
-	background-repeat: repeat-x;
-}
-
-#Header { 
-
-	height:85px;
-}
-
-#Sidebar {
-	position: relative;
-	height: 100%;
-}
-
-#Sidebar h3 {;
-	margin: 0;
-	padding: 0;
-	padding-left: 12px;
-	padding-top: 8px;	
-	cursor: pointer;
-	background-image: url(../images/menu-header-bg1.png);
-	height:26px;
-	margin-top:1em;
-	font-size: 16px;
-	color: #4e4e4e;
-	font-weight: bold;
-	margin-bottom:5px;
-}
-
-#SideBar ul {
-	list-style-type: none;	
-	padding-left: 10px;
-	font-weight: bold;
-}
-#SideBar li {
-	margin-bottom: 2px;
-}
-
-UL.Tasks { 
-	margin: 0;
-	padding: 0;
-}
-
-UL.Tasks li {
-	list-style-type: none;
-	margin-bottom: .5em;
-}
-
-UL.Tasks li > div { 
-	cursor: pointer;
-}
-
-UL.Actions { 
-	margin-top: .5em;
-}
-
-UL.Works {
-	margin-top: .5em;
-}
-
-.ItemInner {
-	position: relative;
-}
-
-.ItemBot { 
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: inherit;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
-
-.ItemTop { 
-	position: absolute;
-	left: 0;
-	top: 0;
-	height: inherit;
-	width: 100%;
-	background: #fff;
-}
-
-
-li.Task > div {
-	height: 58px;
-	font-size: 20px;
-}
-
-li.Action > div { 
-	height:48px;
-	font-size: 14px;
-}
-
-li.Work > div {
-	height: 40px;
-	font-size: 12px;
-}
-
-#TemplatesContainer { 
-	position: fixed;
-	top: 22%;
-}
-
-#TemplatesContainer > span {
-	margin: .5em;
-	display: block;
-	color: #aeaeae;
-	font-size: 11px;
-	font-weight: bold;
-	margin-left: 1em;
-}
-
-#ItemTemplates li img {
-	float: right;
-	margin-right: 6px;
-}
-
-#ItemTemplates li > div { 
-	text-align: left;
-}
-
-
-
-#ItemTemplates li.Task > div {
-	width: 94px;
-}
-
-li.Task .ItemBot {
-	background: #db902b;
-}
-
-#ItemTemplates li.Task .ItemTop {
-	padding-left: 10px;
-	padding-top: 15px;
-	height: 43px;
-	width: 75px;
-}
-
-#ItemTemplates li.Task .ItemTop > span {
-	display: inline-block;
-	font-weight: bold;
-}
-
-#ItemTemplates li.Action > div { 
-	width: 84px;
-}
-
-li.Action .ItemBot {
-	background: #b76027;
-}
-
-#ItemTemplates li.Action .ItemTop {
-	padding-left: 10px;
-	padding-top: 10px;
-	height: 38;
-	width: 65px;
-}
-
-#ItemTemplates li.Action .ItemTop > span {
-	display: inline-block;
-	padding-top:4px;
-	font-weight: bold;
-}
-
-
-
-#ItemTemplates li.Work > div{
-	width: 74px;
-}
-
-li.Work .ItemBot {
-	background: #aeaeae;
-}
-
-#ItemTemplates li.Work .ItemTop {
-	padding-left: 10px;
-	padding-top: 6px;
-	height: 36px;
-	width: 57px;
-}
-
-#ItemTemplates li.Work .ItemTop > span {
-	display: inline-block;
-	padding-top:6px;
-	font-weight: bold;
-}
-
-
-#ProjectTasks { 
-	float: right;
-	padding:.5em;
-	width: 400px;
-}
-
-#ProjectTasks .ItemInner { 
-	overflow: hidden;
-}
-
-#ProjectTasks li.Task .ItemTop {
-	margin-left: 10px;
-	width: 380px;	
-	padding-left: 10px;
-
-	-webkit-border-top-right-radius: 5px;
-	-webkit-border-bottom-right-radius: 5px;
-	-moz-border-radius-topright: 5px;
-	-moz-border-radius-bottomright: 5px;
-	border-top-right-radius: 5px;
-	border-bottom-right-radius: 5px;
-}
-
-#ProjectTasks li.Action .ItemTop {
-	margin-left: 10px;
-	width: 362px;	
-	padding-left: 10px;
-
-	-webkit-border-top-right-radius: 5px;
-	-webkit-border-bottom-right-radius: 5px;
-	-moz-border-radius-topright: 5px;
-	-moz-border-radius-bottomright: 5px;
-	border-top-right-radius: 5px;
-	border-bottom-right-radius: 5px;
-}
-
-#ProjectTasks li.Work .ItemTop {
-	margin-left: 10px;
-	width: 344px;	
-	padding-left: 10px;
-
-	-webkit-border-top-right-radius: 5px;
-	-webkit-border-bottom-right-radius: 5px;
-	-moz-border-radius-topright: 5px;
-	-moz-border-radius-bottomright: 5px;
-	border-top-right-radius: 5px;
-	border-bottom-right-radius: 5px;
-}
-
-#ProjectTasks > li.FirstItem { 
-	border: 1px solid #fff;
-	opacity: .5;
-	height: 43px;
-	text-align: center;
-	padding-top: 15px;
-	font-size: 20px;
-	background: #fff;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
-
-#ProjectTasks li.FirstActionItem {
-	border: 1px solid #fff;
-	opacity: .5;
-	height: 38px;
-	text-align: center;
-	padding-top: 10px;
-	font-size: 14px;
-	background: #fff;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
-
-#ProjectTasks li.FirstWorkItem {
-	border: 1px solid #fff;
-	opacity: .5;
-	height: 34px;
-	padding-top: 6px;
-	text-align: center;
-	font-size: 12px;
-	background: #fff;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
-
-.ProjectName {
-	position: relative;
-	font-weight: bold;
-	overflow: hidden;
-	height: 85px;
-}
-
-.ProjectName h1 {
-	padding:5px;
-	padding-left:20px;
-	padding-right: 20px;
-	position: relative;
-	font-size: 25px;
-	top: 48px;
-	margin: 0;
-	text-align: center;
-	cursor: pointer;
-	width: 200px;
-	margin-left: auto;
-	margin-right: auto;
-	
-	color: #4e4e4e;
-	-webkit-border-top-left-radius: 5px;
-	-webkit-border-top-right-radius: 5px;
-	-moz-border-radius-topleft: 5px;
-	-moz-border-radius-topright: 5px;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
+.Rounded { 
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 	border: 1px solid #ccc;
-	background: #fff;
-				
 }
 
-.TaskTitle, .ActionTitle, .WorkTitle { 
+.NewTask { 
+	width: 915px; 
+	font-family: inherit; 
+	font-size: 3em;
+	margin-left: 18px;
+	margin-top: .8em;
+	background: #fffaba;
+	color: #999;
+	padding: .2em;
+}
+
+.Header { 
+	margin-top: 1em
+}
+
+.Header img { 
+	display: block;
 	float: left;
-	width: 90%; 
+	margin-top: 5px;
 }
 
-.Task .CreatedBy {
-	font-weight: normal;
-	font-size: 15px;
-	color: #bbb;
+.ShuffleName { 
+	background: #f2f2f2;
+	font-size: 2.8em;
+	padding: .1em;
+	display: block;
+	float: right;
+	width: 596px;
+	color: #999;
 }
 
-input.NameInput {
-	font-size: inherit;
-	width: inherit;
-	height: inherit;
-	font-family: inherit;
-	border: 0;
-	background: #FFFFCC;
-	text-align: inherit;
-}
 
-.TaskExpandCollapse { 
-	float: right; 
-	font-size: 75%;
-}
-
-#WorkSpace { 
-	overflow: hidden;
-	border-left: 1px solid #ccc;
-	border-right: 1px solid #ccc;
-	width: 788;
-	height: auto;
-	background: #ebedf0;
-}
-
-#InnerWorkSpace { 
-	width: 2370px;
-	height: 100%;
-}
-
-.Section { 
-	float: left;
-}
-
-.SectionInner {
-	padding-left: 5px;
-}
-
-#UserSettingsMenu {
+.TaskListButtons { 
+	margin-top: 2em;
+	margin-bottom: .3em;
 	text-align: right;
-	padding-top:45px;
-	padding-right: 15px;
 }
 
-#UserSettingsMenu img {
-	margin-left: 3px;
+.TaskListButtons img {
+	margin-left: 20px;
+	vertical-align: middle;
+}
+
+.TaskListButtons {
+	color: #999;
+}
+
+.TaskListButtons span {
 	cursor: pointer;
 }
 
-.ItemEditHover {
-	font-size: 12px;
-	display: inline;
-	margin-left: 10px;
+.TaskList { 
+	padding: .5em;
+	font-size: 3em; 
+	list-style-type: none;
+	background-image: url(../images/diagonals.png);
+	background-repeat: repeat;
+	margin: 0;
 }
 
-.ItemEditHover span {
-	text-decoration: underline;
-	color: #0000ff;
+.TaskList button.ui-button { width: .8em; margin-right: .3em;}
+.TaskList button span.ui-button-icon-primary { left: 0.2em;}
+.TaskList li { background: #fff; margin-bottom: .15em; padding: .25em;}
+.TaskList li img { display: block; float: left; margin-top: .15em; cursor: pointer;}
+.TaskList li .TaskContent { cursor: move; display: block; float: right; color: #5e5e5e; width: 828px;}
+
+.TaskList .TaskComplete { 
+	text-decoration: line-through;
+	color: #ccc;
 }
-
-.Task textarea { 
-	width: 368px;
-	height: 120px;
-	border: 1px solid #ccc;
-}
-
-.Action textarea {
-	width: 352px;
-}
-
-.Work textarea {
-	width: 331px;
-	height: 175px;
-}
-
-.Task label {
-	display: block;
-	font-size: 14px;
-}
-
-.Task label:after { 
-	content: ':';
-}
-
-.Task .FormBox {
-	float: left;
-	margin-right: 10px;
-}
-
-.Task .FormBoxLast { 
-	float: left;
-	margin-right: 0;
-}
-
-.Task .FormBoxLast input {
-	width: 53px;
-	margin-top: 7px;
-	border: 1px solid #ccc;
-}
-
-.Task select { 
-	font-size: 14px;
-	font-family: inherit;
-}
-
-#UsersSection img {
-	margin-left: 1em;
-	margin-top: 1em;
-}
-
-
-#ContributionsSection img {
-	margin-left: 1em;
-	margin-top: 1em;
-}
-
-
-
-/* sticky-footer.css */
-
-/*  
-Sticky Footer Solution
-by Steve Hatcher
-http://stever.ca
-http://www.cssstickyfooter.com
-*/
-
-* {margin:0;padding:0;}
-
-/* must declare 0 margins on everything, also for main layout components use padding, not
-vertical margins (top and bottom) to add spacing, else those margins get added to total height
-and your footer gets pushed down a bit more, creating vertical scroll bars in the browser */
-
-html, body, #wrap {height: 100%;}
-
-body > #wrap {height: auto; min-height: 100%;}
-
-#main {padding-bottom: 49px;}  /* must be same height as the footer */
-
-#Footer {position: relative;
-    margin-top: -49px; /* negative value of footer height */
-    height: 49px;
-    clear:both;
-	background-image: url(../images/gradient-slice-footer.png);
-	background-repeat: repeat-x;}
-
-/* CLEAR FIX*/
-.clearfix:after {content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;}
-.clearfix {display: inline-block;}
-/* Hides from IE-mac \*/
-* html .clearfix { height: 1%;}
-.clearfix {display: block;}
-/* End hide from IE-mac */
-
