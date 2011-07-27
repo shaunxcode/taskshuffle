@@ -14,6 +14,7 @@
 <html>
 <head>
 	<title>TaskShuffle</title>
+	<link rel="shortcut icon" href="favicon.ico"/>
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="style/blueprint/screen.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="style/taskshuffle.css" type="text/css" media="all" />
