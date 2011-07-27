@@ -5,6 +5,7 @@ $(function(){
 		backendUrl: function() { 
 			return 'backend.php?file=' + TS.name;
 		},
+		nameDefault: 'Start typing a new item here...',
 		user: 'test',
 		timestamp: false,
 		tasks: {},
@@ -155,10 +156,15 @@ $(function(){
 				$(this).val('');
 			}
 		})
-		.val('Start typing a new item here...')
+		.val(TS.nameDefault)
+		.blur(function(){
+			if($(this).val().length == 0) {
+				$(this).val(TS.nameDefault);
+			}
+		})
 		.focus(function(){
-			if(!$(this).data('firstTime')) {
-				$(this).val('').data('firstTime', true);
+			if($(this).val() == TS.nameDefault) {
+				$(this).val('');
 			}
 		});
 	
