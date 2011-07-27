@@ -28,6 +28,7 @@
 			$('.ShuffleName').val(TS.name);
 		})
 	</script>
+	<link rel="apple-touch-icon" href="ts_icon.png" />
 </head>
 <body>
 	<div class="container">

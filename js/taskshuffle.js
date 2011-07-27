@@ -26,7 +26,11 @@ $(function(){
 						item.complete = true;
 						TS.save(item);
 					}))
-				.append($('<div />').addClass('TaskContent').text(item.task))
+				.append($('<div />')
+					.addClass('TaskContent')
+					.html($('<span />').text(item.task))
+					.append($('<img />').attr('src', 'images/trash.png')))
+					
 				.append($('<div />').addClass('clear'))
 				.hide()
 				.prependTo('.TaskList')

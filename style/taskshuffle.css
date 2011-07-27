@@ -68,8 +68,10 @@
 .TaskList button.ui-button { width: .8em; margin-right: .3em;}
 .TaskList button span.ui-button-icon-primary { left: 0.2em;}
 .TaskList li { background: #fff; margin-bottom: .15em; padding: .25em;}
-.TaskList li img { display: block; float: left; margin-top: .15em; cursor: pointer;}
-.TaskList li .TaskContent { cursor: move; display: block; float: right; color: #5e5e5e; width: 828px;}
+.TaskList li > img { display: block; float: left; margin-top: .15em; cursor: pointer;}
+.TaskList li .TaskContent { display: block; float: right; color: #5e5e5e; width: 828px;}
+.TaskList li .TaskContent > span { cursor: move; }
+.Tasklist li .TaskContent img { float: right; bottom: 0; cursor: pointer; }
 
 .TaskList .TaskComplete { 
 	text-decoration: line-through;
