@@ -24,7 +24,8 @@ $(function(){
 				.attr('id', 'task-' + item.id)
 				.html($('<img />').attr('src', 'images/box_empty.png')
 					.click(function() {
-						item.complete = item.complete == true ? false : true;
+						item.complete = item.complete == 'true' ? 'false' : 'true';
+						TS.toggleComplete(item);
 						TS.save(item);
 					}))
 				.append($('<div />')
@@ -40,7 +41,7 @@ $(function(){
 		
 		toggleComplete: function(item) {							
 			var view = $('#task-' + item.id);
-			if(item.complete == 'true' ) { 
+			if(item.complete == 'true') { 
 				if(!view.hasClass('TaskComplete')) {
 					view.addClass('TaskComplete');
 					$('> img', view).attr('src', 'images/box_checked.png');
