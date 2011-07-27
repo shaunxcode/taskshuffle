@@ -4,36 +4,39 @@ $(function(){
 		backendUrl: function() { 
 			return 'backend.php?file=' + TS.name;
 		},
+		user: 'test',
 		timestamp: false,
 		tasks: {},
 		users: {},
 		
-		addTask: function(task) {
-			$.post(TS.backendUrl(), {
-				msg: task,
-				user: 'test',
-			});
+		save: function(item) {
+			$.post(TS.backendUrl(), {item: item});
 		},
 		
 		drawUser: function(user) {
 			TS.users[user] = {};
 		},
 		
-		drawTask: function(task) {
+		drawTask: function(item) {
 			$('<li />')
+				.attr('id', 'task-' + item.id)
 				.html($('<button />').button({
 						icons: {
 							primary: 'ui-icon-check'
 						}
 					})
 					.click(function() {
-						$('div', $(this).parent()).addClass('TaskComplete');
-						$(this).button('disable');
+						item.complete = true;
+						TS.save(item);
 					}))
-				.append($('<div />').text(task))
+				.append($('<div />').text(item.task))
 				.hide()
 				.prependTo('.TaskList')
 				.fadeIn('slow');
+		},
+		
+		toggleComplete: function(item) {
+			$('#task-' + item.id + ' div')[(item.complete == 'true' ? 'add' : 'remove') + 'Class']('TaskComplete');
 		},
 		
 		connect: function() {
@@ -47,9 +50,10 @@ $(function(){
 	         					TS.drawUser(item.user);
 	         				}
 
-	         				TS.tasks[item.id] = item.msg;
-							TS.drawTask(item.msg);
+	         				TS.tasks[item.id] = item;
+							TS.drawTask(item);
 	         			}
+						TS.toggleComplete(item);
 	         		});
 
 	         		TS.timestamp = response.timestamp;
@@ -65,7 +69,11 @@ $(function(){
 	
 	$('.NewTask').keypress(function(e) {
 		if(e.keyCode == 13) {
-			TS.addTask($(this).val());
+			TS.save({
+				user: TS.user, 
+				task: $(this).val(), 
+				complete: false});
+				
 			$(this).val('');
 		}
 	});

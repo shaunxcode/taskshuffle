@@ -1,50 +1,56 @@
-  <?php
+<?php
 
-  if(!isset($_GET['file'])) 
-  {
-    die('MUST SPECIFY FILE');
-  }
+namespace TaskShuffle;
 
-  $filename  = dirname(__FILE__) . '/data/' . $_GET['file'] . '.txt';
+function verifyItem($item) {
+	foreach(array_keys($item) as $key) {
+		if(!in_array($key, array('id', 'user', 'task', 'complete'))) {
+			return false;
+		}
+	}
 
-  if(!file_exists($filename)) {
-    touch($filename);
-  }
+	return true;
+}
 
-  // store new message in the file
-  if (isset($_POST['msg'])) 
-  {
-    if(!isset($_POST['user'])) 
-    {
-       die('Must specify user');
-    }
+function getMessages($filename) {
+	return json_decode('[' . substr(file_get_contents($filename), 0, -2) .']');
+}
 
-    file_put_contents(
-      $filename, 
-      json_encode(array(
-        'id' => uniqid(),
-        'user' => $_POST['user'],
-        'msg' => $_POST['msg'])) . ",\n",  
-      FILE_APPEND);
-    die();
-  }
+if(!isset($_GET['file'])) {
+	die('MUST SPECIFY FILE');
+}
 
-  // infinite loop until the data file is not modified
-  $lastmodif    = isset($_GET['timestamp']) ? $_GET['timestamp'] : 0;
-  $currentmodif = filemtime($filename);
-/*  while ($currentmodif <= $lastmodif) // check if the data file has been modified
-  {
-    usleep(10000); // sleep 10ms to unload the CPU
-    clearstatcache();
-    $currentmodif = filemtime($filename);
-  }*/
+$filename  = dirname(__FILE__) . '/data/' . $_GET['file'] . '.txt';
 
-  // return a json array
-  echo json_encode(array(
-    'messages' => json_decode('[' . substr(file_get_contents($filename), 0, -2) .']'), 
-    'timestamp' => $currentmodif));
+if(!file_exists($filename)) {
+	touch($filename);
+}
 
-  die();
-  //flush();
- 
-  ?>
+if(isset($_POST['item'])) {
+	$item = $_POST['item'];
+	if(!verifyItem($item)) {
+		die('INVALID');
+	}
+	
+	if(!empty($item['id'])) {
+		//update
+		$file = '';
+		foreach(getMessages($filename) as $message) {
+			if($message->id == $item['id']) {
+				$message = $item;
+			}
+			$file .= json_encode($message) . ",\n";
+		}
+		
+		file_put_contents($filename, $file);
+	} 
+	else {
+		$item['id'] = uniqid();
+		file_put_contents($filename, json_encode($item) . ",\n", FILE_APPEND);
+	}
+} 
+else {
+	echo json_encode(array(
+		'messages' => getMessages($filename), 
+		'timestamp' => filemtime($filename)));
+}
