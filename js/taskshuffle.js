@@ -47,8 +47,17 @@ $(function(){
 					$('> img', view).attr('src', 'images/box_checked.png');
 					view.hide().prependTo($('.CompletedTasks')).fadeIn('slow');
 				}
+				
+				if(!$('.CompletionDate', view).length && item.completionDate) {
+					$('.TaskContent', view).append(
+						$('<span />')
+							.addClass('CompletionDate')
+							.text(item.completionDate)
+							.css('float', 'right'));
+				}
 			} else {
 				if(view.hasClass('TaskComplete')) {
+					$('.CompletionDate', view).remove();
 					view.removeClass('TaskComplete');
 					$('> img', view).attr('src', 'images/box_empty.png');
 					view.hide().prependTo($('.ActiveTasks')).fadeIn('slow');

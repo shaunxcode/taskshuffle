@@ -89,3 +89,4 @@
 .Tasklist li .TaskContent img { float: right; bottom: 0; cursor: pointer; }
 .TaskList li.TaskComplete { background: #f2f2f2; }
 .TaskList li.TaskComplete .TaskContent > span { color: #d4d4d4;}
+.TaskList li.TaskComplete .TaskContent > span.CompletionDate { font-size: .5em; margin-right: .5em;}

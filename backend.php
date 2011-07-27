@@ -4,7 +4,7 @@ namespace TaskShuffle;
 
 function verifyItem($item) {
 	foreach(array_keys($item) as $key) {
-		if(!in_array($key, array('id', 'user', 'task', 'complete'))) {
+		if(!in_array($key, array('id', 'user', 'task', 'complete', 'completionDate'))) {
 			return false;
 		}
 	}
@@ -37,6 +37,9 @@ if(isset($_POST['item'])) {
 		$file = '';
 		foreach(getMessages($filename) as $message) {
 			if($message->id == $item['id']) {
+				if($item['complete'] == 'true') {
+					$item['completionDate'] = date('m/d/Y H:i:s');
+				}
 				$message = $item;
 			}
 			$file .= json_encode($message) . ",\n";
