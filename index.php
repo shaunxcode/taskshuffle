@@ -26,7 +26,7 @@
 		$(function(){
 			TS.name = <?php echo json_encode($file); ?>;
 			$('.ShuffleName').val(TS.name);
-		})
+		});
 	</script>
 	<link rel="apple-touch-icon" href="ts_icon.png" />
 </head>
@@ -49,7 +49,10 @@
 				Clear All
 			</span>
 		</div>
-		<ul class="TaskList Rounded"></ul>
+		<div class="Tasks Rounded">
+			<ul class="TaskList ActiveTasks"></ul>
+			<ul class="TaskList CompletedTasks">
+		</div>
 	</div>
 </body>
 </html>

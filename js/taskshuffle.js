@@ -20,6 +20,7 @@ $(function(){
 		
 		drawTask: function(item) {
 			$('<li />')
+				.addClass('Shadow')
 				.attr('id', 'task-' + item.id)
 				.html($('<img />').attr('src', 'images/box_empty.png')
 					.click(function() {
@@ -33,12 +34,27 @@ $(function(){
 					
 				.append($('<div />').addClass('clear'))
 				.hide()
-				.prependTo('.TaskList')
+				.prependTo('.ActiveTasks')
 				.fadeIn('slow');
 		},
 		
 		toggleComplete: function(item) {
-			$('#task-' + item.id + ' div')[(item.complete == 'true' ? 'add' : 'remove') + 'Class']('TaskComplete');
+			if(TS.tasks[item.id].complete == item.complete) {
+				return;
+			}
+
+			TS.tasks[item.id].complete = item.complete;
+							
+			var view = $('#task-' + item.id);
+			if(item.complete == 'true') { 
+
+				view.addClass('TaskComplete');
+				$('> img', view).attr('src', 'images/box_checked.png');
+				view.hide(500).prependTo($('.CompletedTasks')).fadeIn('slow');
+			} else {
+				view.removeClass('TaskComplete');
+				$('> img', view).attr('src', 'images/box_empty.png');
+			} 
 		},
 		
 		connect: function() {

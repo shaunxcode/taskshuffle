@@ -5,6 +5,12 @@
 	border: 1px solid #ccc;
 }
 
+.Shadow {
+  -moz-box-shadow: 3px 3px 3px #ccc;
+  -webkit-box-shadow: 3px 3px 3px #ccc;
+  box-shadow: 3px 3px 3px #ccc;
+}
+
 .NewTask { 
 	width: 915px; 
 	font-family: inherit; 
@@ -56,24 +62,30 @@
 	cursor: pointer;
 }
 
+.Tasks { 
+	background-image: url(../images/diagonals.png);
+	background-repeat: repeat;
+}
+
 .TaskList { 
 	padding: .5em;
 	font-size: 3em; 
 	list-style-type: none;
-	background-image: url(../images/diagonals.png);
-	background-repeat: repeat;
 	margin: 0;
+	padding-bottom: 0;
+}
+
+.CompletedTasks { 
+	padding-top: 0;
+	padding-bottom: 0;
 }
 
 .TaskList button.ui-button { width: .8em; margin-right: .3em;}
 .TaskList button span.ui-button-icon-primary { left: 0.2em;}
-.TaskList li { background: #fff; margin-bottom: .15em; padding: .25em;}
-.TaskList li > img { display: block; float: left; margin-top: .15em; cursor: pointer;}
+.TaskList li { background: #fff; margin-bottom: .25em; padding: .25em; border: 1px solid #eee;}
+.TaskList li > img { display: block; float: left; margin-top: 0em; cursor: pointer;}
 .TaskList li .TaskContent { display: block; float: right; color: #5e5e5e; width: 828px;}
-.TaskList li .TaskContent > span { cursor: move; }
+.TaskList li .TaskContent > span { cursor: move; line-height: 1em;}
 .Tasklist li .TaskContent img { float: right; bottom: 0; cursor: pointer; }
-
-.TaskList .TaskComplete { 
-	text-decoration: line-through;
-	color: #ccc;
-}
+.TaskList li.TaskComplete { background: #f2f2f2; }
+.TaskList li.TaskComplete .TaskContent > span { color: #d4d4d4;}
