@@ -24,7 +24,7 @@ $(function(){
 				.attr('id', 'task-' + item.id)
 				.html($('<img />').attr('src', 'images/box_empty.png')
 					.click(function() {
-						item.complete = true;
+						item.complete = item.complete == true ? false : true;
 						TS.save(item);
 					}))
 				.append($('<div />')
@@ -38,22 +38,20 @@ $(function(){
 				.fadeIn('slow');
 		},
 		
-		toggleComplete: function(item) {
-			if(TS.tasks[item.id].complete == item.complete) {
-				return;
-			}
-
-			TS.tasks[item.id].complete = item.complete;
-							
+		toggleComplete: function(item) {							
 			var view = $('#task-' + item.id);
-			if(item.complete == 'true') { 
-
-				view.addClass('TaskComplete');
-				$('> img', view).attr('src', 'images/box_checked.png');
-				view.hide(500).prependTo($('.CompletedTasks')).fadeIn('slow');
+			if(item.complete == 'true' ) { 
+				if(!view.hasClass('TaskComplete')) {
+					view.addClass('TaskComplete');
+					$('> img', view).attr('src', 'images/box_checked.png');
+					view.hide().prependTo($('.CompletedTasks')).fadeIn('slow');
+				}
 			} else {
-				view.removeClass('TaskComplete');
-				$('> img', view).attr('src', 'images/box_empty.png');
+				if(view.hasClass('TaskComplete')) {
+					view.removeClass('TaskComplete');
+					$('> img', view).attr('src', 'images/box_empty.png');
+					view.hide().prependTo($('.ActiveTasks')).fadeIn('slow');
+				}
 			} 
 		},
 		
@@ -79,6 +77,8 @@ $(function(){
 							TS.toggleComplete(item);
 							updated = true;
 						}
+						
+						TS.tasks[item.id] = item;
 	         		});
 	
 					if(updated) {
