@@ -23,6 +23,14 @@ $(function(){
 				.addClass('Shadow')
 				.attr('id', 'task-' + item.id)
 				.html($('<img />').attr('src', 'images/box_empty.png')
+					.mousedown(function(){
+						$(this).attr('src', 'images/box_transition_check.png');
+					})
+					.mouseup(function(){
+						if($(this).attr('src') == 'images/box_transition_check.png') {
+							$(this).attr('src', 'images/box_empty.png');
+						}
+					})
 					.click(function() {
 						item.complete = item.complete == 'true' ? 'false' : 'true';
 						TS.toggleComplete(item);
