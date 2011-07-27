@@ -1,5 +1,6 @@
 $(function(){
 	window.TS = {
+		active: true,
 		name: false,
 		backendUrl: function() { 
 			return 'backend.php?file=' + TS.name;
@@ -44,6 +45,7 @@ $(function(){
 	    		TS.backendUrl(),
 		       	{timestamp: TS.timestamp},
 		       	function(response) {
+					var updated = false;
 	         		$.each(response.messages, function(i, item){
 	         			if(!TS.tasks[item.id]) {
 	         				if(!TS.users[item.user]) {
@@ -52,10 +54,20 @@ $(function(){
 
 	         				TS.tasks[item.id] = item;
 							TS.drawTask(item);
+							TS.toggleComplete(item);
+							updated = true;
 	         			}
-						TS.toggleComplete(item);
+	
+						if(TS.tasks[item.id].complete != item.complete) {
+							TS.toggleComplete(item);
+							updated = true;
+						}
 	         		});
-
+	
+					if(updated) {
+						TS.titleUpdate('updated...');
+					}
+					
 	         		TS.timestamp = response.timestamp;
 	       		},
 	      		'JSON')
@@ -65,7 +77,37 @@ $(function(){
 	       		});
    		},
 		
+		title: 'TaskShuffle',
+		titleIntervalId: false,
+		titleUpdate: function(msgText) {
+			if(TS.titleIntervalId) {
+				window.clearInterval(TS.titleIntervalId);
+			}
+			
+			if(!TS.active) {
+				var title = $('title');
+				TS.titleIntervalId = window.setInterval(function() {
+					if(title.text() == TS.title) {
+						title.text(msgText);
+					} else {
+						title.text(TS.title);
+					}
+				}, 1000);
+			}
+		}
 	};
+	
+	$(window)
+		.focus(function() { 
+			if(TS.titleIntervalId) {
+				$('title').text(TS.title);
+				window.clearInterval(TS.titleIntervalId);
+			}
+			TS.active = true;
+		})
+		.blur(function() {
+			TS.active = false;
+		})
 	
 	$('.NewTask').keypress(function(e) {
 		if(e.keyCode == 13) {
