@@ -1,3 +1,9 @@
+var keys = {
+	ENTER: 13,
+	ESCAPE: 27,
+	SPACE: 32
+};
+
 $(function(){
 	window.TS = {
 		active: true,
@@ -23,7 +29,8 @@ $(function(){
 			$('<li />')
 				.addClass('Shadow')
 				.attr('id', 'task-' + item.id)
-				.html($('<img />').attr('src', 'images/box_empty.png')
+				.html($('<div />').addClass('DragHandle'))
+				.append($('<img />').attr('src', 'images/box_empty.png')
 					.mousedown(function(){
 						$(this).attr('src', 'images/box_transition_check.png');
 					})
@@ -39,7 +46,29 @@ $(function(){
 					}))
 				.append($('<div />')
 					.addClass('TaskContent')
-					.html($('<span />').text(item.task))
+					.html($('<span />')
+						.text(item.task)
+						.click(function() {
+							var oldSpan = $(this).clone(true);
+							var input = $('<input />')
+								.attr('type', 'text')
+								.val(item.task)
+								.addClass('Rounded')
+								.keyup(function(e) {
+									if(e.keyCode == keys.ENTER) {
+										item.task = $(this).val();
+										TS.save(item);
+										$(this).replaceWith(oldSpan.text(item.task));
+									}
+									
+									if(e.keyCode == keys.ESCAPE) {
+										$(this).replaceWith(oldSpan);
+									}
+								})
+									
+							$(this).replaceWith(input);
+							input.focus();
+						}))
 					.append($('<img />').attr('src', 'images/trash.png')))
 					
 				.append($('<div />').addClass('clear'))
@@ -92,6 +121,10 @@ $(function(){
 							updated = true;
 	         			}
 	
+						if(TS.tasks[item.id].task != item.task) {
+							$('#task-' + item.id + ' .TaskContent span').text(item.task);
+						}
+						
 						if(TS.tasks[item.id].complete != item.complete) {
 							TS.toggleComplete(item);
 							updated = true;
@@ -147,7 +180,7 @@ $(function(){
 	
 	$('.NewTask')
 		.keypress(function(e) {
-			if(e.keyCode == 13) {
+			if(e.keyCode == keys.ENTER) {
 				TS.save({
 					user: TS.user, 
 					task: $(this).val(), 

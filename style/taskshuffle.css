@@ -88,10 +88,12 @@
 
 .TaskList button.ui-button { width: .8em; margin-right: .3em;}
 .TaskList button span.ui-button-icon-primary { left: 0.2em;}
-.TaskList li { background: #fff; margin-bottom: .25em; padding: .25em; border: 1px solid #eee;}
+.TaskList li { background: #fff; margin-bottom: .25em; padding: .25em; padding-left: .15em; border: 1px solid #eee;}
 .TaskList li > img { display: block; float: left; margin-top: 0em; cursor: pointer;}
+.TaskList .DragHandle { background-image: url(../images/handle.png); background-repeat: repeat-y; width: 6px; height: 1.3em; margin-right: .15em; float: left; cursor: move;}
 .TaskList li div.TaskContent { display: block; float: right; color: #5e5e5e; width: 828px;}
-.TaskList li div.TaskContent > span { cursor: move; line-height: 1em;}
+.TaskList li div.TaskContent > span { cursor: pointer; line-height: 1em;}
+.TaskList li div.TaskContent > input { width: 100%; font-size: inherit; font-family: inherit; width: 800px; margin: 0; color: inherit; background: #fffaba;}
 .TaskList li div.TaskContent img { float: right; bottom: 0; cursor: pointer; }
 .TaskList li.TaskComplete { background: #f2f2f2; }
 .TaskList li.TaskComplete .TaskContent > span { color: #d4d4d4;}
