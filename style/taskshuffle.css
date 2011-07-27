@@ -38,7 +38,7 @@
 	padding: .1em;
 	display: block;
 	float: right;
-	width: 596px;
+	width: 590px;
 	color: #999;
 }
 
@@ -58,13 +58,16 @@
 	color: #999;
 }
 
-.TaskListButtons span {
+.TaskListButtons div {
+	display: inline-block;
 	cursor: pointer;
+	padding: .25em;
 }
 
 .Tasks { 
 	background-image: url(../images/diagonals.png);
 	background-repeat: repeat;
+	margin-bottom: 100px;
 }
 
 .TaskList { 
@@ -78,6 +81,8 @@
 .CompletedTasks { 
 	padding-top: 0;
 	padding-bottom: 0;
+	margin-top: .5em;
+	margin-bottom: 120px;
 }
 
 .TaskList button.ui-button { width: .8em; margin-right: .3em;}
@@ -86,7 +91,7 @@
 .TaskList li > img { display: block; float: left; margin-top: 0em; cursor: pointer;}
 .TaskList li .TaskContent { display: block; float: right; color: #5e5e5e; width: 828px;}
 .TaskList li .TaskContent > span { cursor: move; line-height: 1em;}
-.Tasklist li .TaskContent img { float: right; bottom: 0; cursor: pointer; }
+.TaskList li div.TaskContent img { float: right; bottom: 0; cursor: pointer; }
 .TaskList li.TaskComplete { background: #f2f2f2; }
 .TaskList li.TaskComplete .TaskContent > span { color: #d4d4d4;}
 .TaskList li.TaskComplete .TaskContent > span.CompletionDate { font-size: .5em; margin-right: .5em;}

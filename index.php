@@ -11,6 +11,7 @@
 	
 
 ?>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>TaskShuffle</title>
@@ -41,14 +42,14 @@
 		<div class="SubTitle"><img src="images/subtitle.png"></div>
 		<input class="NewTask Rounded">
 		<div class="TaskListButtons">
-			<span id="clearFinished">
+			<div id="clearFinished">
 				<img src="images/clear_finished.png" />
 				Clear Finished
-			</span>
-			<span id="clearAll">
+			</div>
+			<div id="clearAll">
 				<img src="images/clear_all.png" />
 				Clear All
-			</span>
+			</div>
 		</div>
 		<div class="Tasks Rounded">
 			<ul class="TaskList ActiveTasks"></ul>
