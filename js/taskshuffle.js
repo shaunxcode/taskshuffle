@@ -160,8 +160,13 @@ $(function(){
 			if(!$(this).data('firstTime')) {
 				$(this).val('').data('firstTime', true);
 			}
-		})
+		});
 	
+	$('.ShuffleName')
+		.keyup(function(e) {
+			$(this).val($(this).val().replace(' ', '_'));
+		});
+		
 	$('#clearFinished').click(function(){
 		confirm('Are you sure you want to clear all finished tasks?');
 	});
