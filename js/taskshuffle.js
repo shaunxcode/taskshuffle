@@ -49,6 +49,10 @@ $(function(){
 					.html($('<span />')
 						.text(item.task)
 						.click(function() {
+							if(TS.tasks[item.id].complete == 'true') {
+								return;
+							}
+							
 							var oldSpan = $(this).clone(true);
 							var input = $('<input />')
 								.attr('type', 'text')
