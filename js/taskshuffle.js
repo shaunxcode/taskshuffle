@@ -52,7 +52,7 @@ $(function(){
 							var oldSpan = $(this).clone(true);
 							var input = $('<input />')
 								.attr('type', 'text')
-								.val(item.task)
+								.val(TS.tasks[item.id].task)
 								.addClass('Rounded')
 								.keyup(function(e) {
 									if(e.keyCode == keys.ENTER) {
