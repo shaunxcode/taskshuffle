@@ -12,37 +12,38 @@
 }
 
 .NewTask { 
-	width: 915px; 
+	width: 621px; 
 	font-family: inherit; 
 	font-size: 3em;
-	margin-left: 18px;
 	margin-top: .8em;
 	background: #fffaba;
 	color: #999;
 	padding: .2em;
+	margin-right: 30px;
+}
+
+#newTaskPlus { 
+	margin-top: 5px;
+	display: inline-block;
+	position: relative; 
+	top: 8px;
+	cursor: pointer;
 }
 
 .Header { 
-	margin-top: 1em
+	margin-top: 0px;
 }
 
 .Header img { 
 	display: block;
 	float: left;
-	margin-top: 5px;
+	margin-top: 12px;
 }
 
-.ShuffleName { 
-	background: #f2f2f2;
-	font-size: 2.8em;
-	padding: .1em;
-	display: block;
+.UserMenu {
 	float: right;
-	width: 590px;
 	color: #999;
-	box-shadow: 0 4px 4px #ccc inset;
 }
-
 
 .TaskListButtons { 
 	margin-top: 2em;
@@ -109,7 +110,7 @@
 #man { 
 	position: absolute; 
 	left: 20px;
-	top: 220px;
+	top: 172px;
 	z-index: 2; 
 	cursor: pointer;
 }

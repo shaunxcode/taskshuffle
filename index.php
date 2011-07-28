@@ -35,12 +35,13 @@
 <body>
 	<div class="container">
 		<div class="Header">
-			<img src="images/title.png">
-			<input class="ShuffleName Rounded">
+			<img src="images/title_2.png">
+			<div class="UserMenu"><strong>Username</strong> | Settings | Logout</div>
 			<div class="clear"></div>
 		</div>
-		<div class="SubTitle"><img src="images/subtitle.png"></div>
-		<input class="NewTask Rounded">
+
+			<input class="NewTask Rounded"><img src="images/plus_2.png" id="newTaskPlus" />
+
 		<div class="TaskListButtons">
 			<div id="clearFinished">
 				<img src="images/clear_finished.png" />

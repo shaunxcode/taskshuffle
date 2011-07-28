@@ -18,7 +18,7 @@ $(function(){
 		users: {},
 		
 		showMan: function() {
-			$('#man').animate({top: 167});
+			$('#man').animate({top: 127});
 		},
 		
 		save: function(item) {
@@ -223,11 +223,6 @@ $(function(){
 			if($(this).val() == TS.nameDefault) {
 				$(this).val('');
 			}
-		});
-	
-	$('.ShuffleName')
-		.keyup(function(e) {
-			$(this).val($(this).val().replace(' ', '_'));
 		});
 		
 	$('#clearFinished').click(function(){
