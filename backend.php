@@ -26,7 +26,25 @@ if(!file_exists($filename)) {
 	touch($filename);
 }
 
-if(isset($_POST['item'])) {
+if(isset($_POST['clearAll'])) {
+	foreach(getMessages($filename) as $message) {
+		$message->deletionDate = date('m/d/y H:i:s');
+		file_put_contents($filename . '.deleted', json_encode($message) . ",\n", FILE_APPEND);
+	}
+	file_put_contents($filename, '');
+}
+else if(isset($_POST['clearFinished'])) {
+	$file = '';
+	foreach(getMessages($filename) as $message) {
+		if($message->complete != 'true') {
+			$message->deletionDate = date('m/d/y H:i:s');
+			file_put_contents($filename . '.deleted', json_encode($message) . ",\n", FILE_APPEND);
+			$file .= json_encode($message) . ",\n";
+		}
+	}
+	file_put_contents($filename, $file);
+}
+else if(isset($_POST['item'])) {
 	$item = $_POST['item'];
 	if(!verifyItem($item)) {
 		die('INVALID');

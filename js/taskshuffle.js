@@ -227,11 +227,15 @@ $(function(){
 		});
 		
 	$('#clearFinished').click(function(){
-		confirm('Are you sure you want to clear all finished tasks?');
+		if(confirm('Are you sure you want to clear all finished tasks?')) {
+			$.post(TS.backendUrl(), {clearFinished: true});
+		}
 	});
 	
 	$('#clearAll').click(function(){
-		confirm('Are you sure you want to clear all tasks?');
+		if(confirm('Are you sure you want to clear all tasks?')) {
+			$.post(TS.backendUrl(), {clearAll: true});
+		}
 	});
 	
 	$('.ActiveTasks').sortable();
