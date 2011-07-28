@@ -75,7 +75,7 @@ $(function(){
 					.append($('<img />').attr('src', 'images/trash.png').click(function(){
 						item.deleted = true;
 						TS.save(item);
-						$('#task-' + item.id).remove();
+						$('#task-' + item.id).hide(500, function() { $(this).remove() });
 					})))
 					
 				.append($('<div />').addClass('clear'))
@@ -221,6 +221,6 @@ $(function(){
 		confirm('Are you sure you want to clear all tasks?');
 	});
 	
-	$('.TaskList').sortable();
+	$('.ActiveTasks').sortable();
 	TS.connect();
 });

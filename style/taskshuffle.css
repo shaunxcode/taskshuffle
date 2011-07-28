@@ -98,3 +98,5 @@
 .TaskList li.TaskComplete { background: #f2f2f2; }
 .TaskList li.TaskComplete .TaskContent > span { color: #d4d4d4;}
 .TaskList li.TaskComplete .TaskContent > span.CompletionDate { font-size: .5em; margin-right: .5em;}
+
+.CompletedTasks .DragHandle { visibility: hidden; }
