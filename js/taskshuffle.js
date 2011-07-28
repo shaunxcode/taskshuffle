@@ -90,7 +90,7 @@ $(function(){
 				if(!view.hasClass('TaskComplete')) {
 					view.addClass('TaskComplete');
 					$('> img', view).attr('src', 'images/box_checked.png');
-					view.hide().prependTo($('.CompletedTasks')).fadeIn('slow');
+					view.hide(500, function() { $(this).prependTo($('.CompletedTasks')).show(500); });
 				}
 				
 				if(!$('.CompletionDate', view).length && item.completionDate) {
@@ -105,7 +105,7 @@ $(function(){
 					$('.CompletionDate', view).remove();
 					view.removeClass('TaskComplete');
 					$('> img', view).attr('src', 'images/box_empty.png');
-					view.hide().prependTo($('.ActiveTasks')).fadeIn('slow');
+					view.hide(500, function() { $(this).prependTo($('.ActiveTasks')).show(500); });
 				}
 			} 
 		},
