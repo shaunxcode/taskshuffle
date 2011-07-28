@@ -72,7 +72,11 @@ $(function(){
 							$(this).replaceWith(input);
 							input.focus();
 						}))
-					.append($('<img />').attr('src', 'images/trash.png')))
+					.append($('<img />').attr('src', 'images/trash.png').click(function(){
+						item.deleted = true;
+						TS.save(item);
+						$('#task-' + item.id).remove();
+					})))
 					
 				.append($('<div />').addClass('clear'))
 				.hide()

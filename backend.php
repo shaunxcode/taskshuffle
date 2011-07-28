@@ -4,7 +4,7 @@ namespace TaskShuffle;
 
 function verifyItem($item) {
 	foreach(array_keys($item) as $key) {
-		if(!in_array($key, array('id', 'user', 'task', 'complete', 'completionDate'))) {
+		if(!in_array($key, array('id', 'user', 'task', 'complete', 'completionDate', 'deleted', 'creationDate', 'deletionDate'))) {
 			return false;
 		}
 	}
@@ -37,6 +37,12 @@ if(isset($_POST['item'])) {
 		$file = '';
 		foreach(getMessages($filename) as $message) {
 			if($message->id == $item['id']) {
+				if($item['deleted'] == 'true') {
+					$item['deletionDate'] = date('m/d/y H:i:s');
+					file_put_contents($filename . '.deleted', json_encode($item) . ",\n", FILE_APPEND);
+					continue;
+				}
+				
 				if($item['complete'] == 'true') {
 					$item['completionDate'] = date('m/d/Y H:i:s');
 				}
@@ -49,6 +55,7 @@ if(isset($_POST['item'])) {
 	} 
 	else {
 		$item['id'] = uniqid();
+		$item['creationDate'] = date('m/d/Y H:i:s');
 		file_put_contents($filename, json_encode($item) . ",\n", FILE_APPEND);
 	}
 } 
