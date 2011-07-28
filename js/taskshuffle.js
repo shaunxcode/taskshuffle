@@ -116,7 +116,9 @@ $(function(){
 		       	{timestamp: TS.timestamp},
 		       	function(response) {
 					var updated = false;
+					var ids = {};
 	         		$.each(response.messages, function(i, item){
+						ids[item.id] = true;
 	         			if(!TS.tasks[item.id]) {
 	         				if(!TS.users[item.user]) {
 	         					TS.drawUser(item.user);
@@ -143,6 +145,13 @@ $(function(){
 					if(updated) {
 						TS.titleUpdate('updated...');
 					}
+					
+					$.each(TS.tasks, function(taskId) {
+						if(!ids[taskId]) {
+							delete TS.tasks[taskId];
+							$('#task-' + taskId).hide(500, function() { $(this).remove(); });
+						}
+					});
 					
 	         		TS.timestamp = response.timestamp;
 	       		},
