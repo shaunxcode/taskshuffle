@@ -220,14 +220,31 @@ $(function(){
 			}
 		});
 		
-	$('#newTaskPlus').click(function() {
-		TS.save({
-			user: TS.user, 
-			task: $('.NewTask').val(), 
-			complete: false});
+	$('#newTaskPlus')
+		.mousedown(function(){
+			$(this).attr('src', 'images/plus_2_down.png');
+		})
+		.mouseup(function(){
+			if($(this).attr('src') == 'images/plus_2_down.png') {
+				$(this).attr('src', 'images/plus_2.png');
+			}
+		})
+		.mouseout(function(){
+			$(this).mouseup();
+		})
+		.click(function() {
+			var task = $('.NewTask').val();
+			if(task.length == 0 || task == TS.nameDefault) {
+				return;
+			}
+		
+			TS.save({
+				user: TS.user, 
+				task: task, 
+				complete: false});
 
-		$('.NewTask').val('');
-	});
+			$('.NewTask').val('').focus();
+		});
 	
 	$('#clearFinished').click(function(){
 		if(confirm('Are you sure you want to clear all finished tasks?')) {
