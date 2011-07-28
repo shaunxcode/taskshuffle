@@ -62,8 +62,11 @@ $(function(){
 									}
 									
 									if(e.keyCode == keys.ESCAPE) {
-										$(this).replaceWith(oldSpan);
+										$(this).blur();
 									}
+								})
+								.blur(function(){
+									$(this).replaceWith(oldSpan);
 								})
 									
 							$(this).replaceWith(input);
