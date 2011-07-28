@@ -205,12 +205,7 @@ $(function(){
 	$('.NewTask')
 		.keypress(function(e) {
 			if(e.keyCode == keys.ENTER) {
-				TS.save({
-					user: TS.user, 
-					task: $(this).val(), 
-					complete: false});
-				
-				$(this).val('');
+				$('#newTaskPlus').click();
 			}
 		})
 		.val(TS.nameDefault)
@@ -225,6 +220,15 @@ $(function(){
 			}
 		});
 		
+	$('#newTaskPlus').click(function() {
+		TS.save({
+			user: TS.user, 
+			task: $('.NewTask').val(), 
+			complete: false});
+
+		$('.NewTask').val('');
+	});
+	
 	$('#clearFinished').click(function(){
 		if(confirm('Are you sure you want to clear all finished tasks?')) {
 			$.post(TS.backendUrl(), {clearFinished: true});
