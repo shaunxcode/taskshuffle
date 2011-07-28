@@ -69,6 +69,10 @@
 	background-image: url(../images/diagonals.png);
 	background-repeat: repeat;
 	margin-bottom: 100px;
+	overflow: hidden;
+	z-index: 10;
+	position: absolute;
+	width: 100%;
 }
 
 .TaskList { 
@@ -100,3 +104,12 @@
 .TaskList li.TaskComplete .TaskContent > span.CompletionDate { font-size: .5em; margin-right: .5em;}
 
 .CompletedTasks .DragHandle { visibility: hidden; }
+
+.container { position: relative; }
+#man { 
+	position: absolute; 
+	left: 20px;
+	top: 220px;
+	z-index: 2; 
+	cursor: pointer;
+}

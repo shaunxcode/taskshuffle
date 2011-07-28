@@ -17,6 +17,10 @@ $(function(){
 		tasks: {},
 		users: {},
 		
+		showMan: function() {
+			$('#man').animate({top: 167});
+		},
+		
 		save: function(item) {
 			$.post(TS.backendUrl(), {item: item});
 		},
@@ -239,5 +243,31 @@ $(function(){
 	});
 	
 	$('.ActiveTasks').sortable();
+	
+	$('#man').click(function(){$(this).animate({top: 220})});
+	
+	TS.code = '';
+	$(window).keyup(function(e) {
+		if(TS.code == '' && e.keyCode == 55) {
+			TS.code = '7';
+		} 
+		else if(TS.code == '7' && e.keyCode == 52) {
+			TS.code = '74'; 
+		} 
+		else if(TS.code == '74' && e.keyCode == 53) {
+			TS.code = '745';
+		}
+		else if(TS.code == '745' && e.keyCode == 75) {
+			TS.code = '745k';
+		}
+		else if(TS.code == '745k' && e.keyCode == 53) {
+			TS.code = '';
+			TS.showMan();
+		}
+		else {
+			TS.code = '';
+		}
+	});
+	
 	TS.connect();
 });

@@ -55,6 +55,7 @@
 			<ul class="TaskList ActiveTasks"></ul>
 			<ul class="TaskList CompletedTasks">
 		</div>
+		<img src="images/745kman.png" id="man" />
 	</div>
 </body>
 </html>
