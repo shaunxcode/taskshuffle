@@ -16,6 +16,7 @@ $(function(){
 		timestamp: false,
 		tasks: {},
 		users: {},
+		insertionMethod: 'prependTo',
 		
 		showMan: function() {
 			$('#man').animate({top: 127});
@@ -29,9 +30,14 @@ $(function(){
 			TS.users[user] = {};
 		},
 		
-		drawTask: function(item) {
+		drawTask: function(item, insertionMethod) {
+			if(!insertionMethod) {
+				var insertionMethod = TS.insertionMethod;
+			}
+
 			$('<li />')
 				.addClass('Shadow')
+				.data('taskId', item.id)
 				.attr('id', 'task-' + item.id)
 				.html($('<div />').addClass('DragHandle'))
 				.append($('<img />').attr('src', 'images/box_empty.png')
@@ -88,7 +94,7 @@ $(function(){
 					
 				.append($('<div />').addClass('clear'))
 				.hide()
-				.prependTo('.ActiveTasks')
+				[insertionMethod]('.ActiveTasks')
 				.fadeIn('slow');
 		},
 		
@@ -98,7 +104,7 @@ $(function(){
 				if(!view.hasClass('TaskComplete')) {
 					view.addClass('TaskComplete');
 					$('> img', view).attr('src', 'images/box_checked.png');
-					view.hide(500, function() { $(this).prependTo($('.CompletedTasks')).show(500); });
+					view.hide(500, function() { $(this)[TS.insertionMethod]($('.CompletedTasks')).show(500); });
 				}
 				
 				if(!$('.CompletionDate', view).length && item.completionDate) {
@@ -133,7 +139,7 @@ $(function(){
 	         				}
 
 	         				TS.tasks[item.id] = item;
-							TS.drawTask(item);
+							TS.drawTask(item, 'appendTo');
 							TS.toggleComplete(item);
 							updated = true;
 	         			}
@@ -258,7 +264,17 @@ $(function(){
 		}
 	});
 	
-	$('.ActiveTasks').sortable();
+	$('.ActiveTasks').sortable({
+		stop: function(e, ui) {
+			var item = $(ui.item);
+			var prev = item.prev();
+
+			$.post(TS.backendUrl(), {
+				after: prev.length == 0 ? false : prev.data('taskId'),
+				item: TS.tasks[item.data('taskId')]
+			});
+		}
+	});
 	
 	$('#man').click(function(){$(this).animate({top: 220})});
 	

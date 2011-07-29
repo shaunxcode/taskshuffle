@@ -4,12 +4,12 @@ namespace TaskShuffle;
 
 function verifyItem($item) {
 	foreach(array_keys($item) as $key) {
-		if(!in_array($key, array('id', 'user', 'task', 'complete', 'completionDate', 'deleted', 'creationDate', 'deletionDate'))) {
-			return false;
+		if(!in_array($key, array('id', 'user', 'task', 'complete', 'completionDate', 'deleted', 'creationDate', 'deletionDate', 'orderBy'))) {
+			die("$key is invalid");
 		}
 	}
 
-	return true;
+	return $item;
 }
 
 function getMessages($filename) {
@@ -26,7 +26,32 @@ if(!file_exists($filename)) {
 	touch($filename);
 }
 
-if(isset($_POST['clearAll'])) {
+if(isset($_POST['after'])) {
+	$order = 0;
+	$item = verifyItem($_POST['item']);
+
+	$file = '';	
+	if($_POST['after'] == 'false') {
+		$item['orderBy'] = $order++;
+		$file .= json_encode($item) . ",\n";	
+	}
+	
+	foreach(getMessages($filename) as $message) {
+		if($message->id == $item['id']) {
+			continue;
+		}
+		
+		$message->orderBy = $order++;
+		$file .= json_encode($message) . ",\n";
+		
+		if($message->id == $_POST['after']) {
+			$item['orderBy'] = $order++;
+			$file .= json_encode($item) . ",\n";
+		}
+	}
+	file_put_contents($filename, $file);
+}
+else if(isset($_POST['clearAll'])) {
 	foreach(getMessages($filename) as $message) {
 		$message->deletionDate = date('m/d/y H:i:s');
 		file_put_contents($filename . '.deleted', json_encode($message) . ",\n", FILE_APPEND);
@@ -45,10 +70,7 @@ else if(isset($_POST['clearFinished'])) {
 	file_put_contents($filename, $file);
 }
 else if(isset($_POST['item'])) {
-	$item = $_POST['item'];
-	if(!verifyItem($item)) {
-		die('INVALID');
-	}
+	$item = verifyItem($_POST['item']);
 	
 	if(!empty($item['id'])) {
 		//update

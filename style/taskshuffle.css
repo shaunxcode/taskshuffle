@@ -97,7 +97,7 @@
 .TaskList li > img { display: block; float: left; margin-top: 0em; cursor: pointer;}
 .TaskList .DragHandle { background-image: url(../images/handle.png); background-repeat: repeat-y; width: 6px; height: 1.3em; margin-right: .15em; float: left; cursor: move;}
 .TaskList li div.TaskContent { display: block; float: right; color: #5e5e5e; width: 828px;}
-.TaskList li div.TaskContent > span { cursor: pointer; line-height: 1em;}
+.TaskList li div.TaskContent > span { cursor: pointer; line-height: 1em; display: block;}
 .TaskList li div.TaskContent > input { width: 100%; font-size: inherit; font-family: inherit; width: 800px; margin: 0; color: inherit; background: #fffaba; border: 1px solid #ccc;}
 .TaskList li div.TaskContent img { float: right; bottom: 0; cursor: pointer; }
 .TaskList li.TaskComplete { background: #f2f2f2; }
