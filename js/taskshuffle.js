@@ -17,6 +17,7 @@ $(function(){
 		tasks: {},
 		users: {},
 		insertionMethod: 'prependTo',
+		stopClick: false,
 		
 		showMan: function() {
 			$('#man').animate({top: 127});
@@ -58,7 +59,11 @@ $(function(){
 					.addClass('TaskContent')
 					.html($('<span />')
 						.text(item.task)
-						.click(function() {
+						.click(function(event) {
+							if(TS.stopClick) {
+								TS.stopClick = false;
+								return;
+							}
 							if(TS.tasks[item.id].complete == 'true') {
 								return;
 							}
@@ -267,12 +272,15 @@ $(function(){
 	$('.ActiveTasks').sortable({
 		stop: function(e, ui) {
 			var item = $(ui.item);
+			TS.stopClick = true;
+			
 			var prev = item.prev();
 
 			$.post(TS.backendUrl(), {
 				after: prev.length == 0 ? false : prev.data('taskId'),
 				item: TS.tasks[item.data('taskId')]
 			});
+			
 		}
 	});
 	
