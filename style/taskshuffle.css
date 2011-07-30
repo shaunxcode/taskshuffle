@@ -11,46 +11,39 @@
   box-shadow: 0px 3px 3px #ccc;
 }
 
+h1 { color: #6B6B6B; } 
+
 .NewTask { 
 	width: 621px; 
 	font-family: inherit; 
-	font-size: 3em;
-	margin-top: .8em;
+	font-size: 2.2em;
 	background: #fffaba;
-	color: #999;
+	color: #6B6B6B;
 	padding: .2em;
-	margin-right: 30px;
+	margin-right: 10px;
+	float: left;
+	display: block;
 }
 
 #newTaskPlus { 
-	margin-top: 5px;
-	display: inline-block;
-	position: relative; 
-	top: 8px;
-	cursor: pointer;
-}
-
-.Header { 
-	margin-top: 0px;
-}
-
-.Header img { 
 	display: block;
 	float: left;
-	margin-top: 12px;
+	cursor: pointer;
 }
 
 .UserMenu {
 	float: right;
 	color: #999;
+	margin-top: 5px; 
 }
 
-.TaskListButtons { 
-	margin-top: 2em;
-	margin-bottom: .3em;
-	padding-bottom: 8px;
-}
+.LeftColumn { padding-top: 15px; padding-bottom: 10px; }
+.RightColumn { text-align: right; padding-top: 15px; padding-bottom: 10px; }
 
+#listCombo { width: 210px; }
+#ListComboContainer { width: 210px; float: right; margin-bottom: 15px; margin-top: 15px;}
+
+.TaskListButtons { height: 22px; }
 .TaskListButtons img {
 	margin-left: 20px;
 	vertical-align: middle;
@@ -63,12 +56,12 @@
 .TaskListButtons div {
 	display: inline-block;
 	cursor: pointer;
-	padding: .25em;
+	padding-bottom: 4px;
 }
 
 .ToggleGroup {
 	float: left;
-	margin-right:5px;
+	margin-right:15px;
 }
 
 #share {
@@ -78,7 +71,6 @@
 	height: 22px;
 	background-image: url(../images/share.png);
 	margin-right: 5px;
-	margin-top: 3px;
 }
 
 #clearFinished {
@@ -122,6 +114,16 @@
 .ToggleOff { background-position: 0px 22px; }
 .ToggleOffDown { background-position: 49px 22px; }
 
+.TopPanel { overflow: hidden; }
+
+#collapseHandle { 
+	border-top: 1px solid #eee; 
+	padding-right: 15px;
+	padding-bottom: 20px;
+}
+
+#collapseHandle img { cursor: pointer; display: block; float: right; }
+
 .Tasks { 
 	background-image: url(../images/diagonals.png);
 	background-repeat: repeat;
@@ -153,7 +155,7 @@
 .TaskList li > img { display: block; float: left; margin-top: 0em; cursor: pointer;}
 .TaskList .DragHandle { background-image: url(../images/handle.png); background-repeat: repeat-y; width: 6px; height: 1.3em; margin-right: .15em; float: left; cursor: move;}
 .TaskList li div.TaskContent { display: block; float: right; color: #5e5e5e; width: 828px;}
-.TaskList li div.TaskContent > span { cursor: pointer; line-height: 1em; display: block; width: 800px;}
+.TaskList li div.TaskContent > span { color: #6B6B6B; cursor: pointer; line-height: 1em; display: block; width: 800px;}
 .TaskList li div.TaskContent > input { display: block; font-size: inherit; font-family: inherit; width: 800px; margin: 0; color: inherit; background: #fffaba; border: 1px solid #ccc;}
 .TaskList li div.TaskContent img { float: right; bottom: 0; cursor: pointer; }
 .TaskList li.TaskComplete { background: #f2f2f2; }

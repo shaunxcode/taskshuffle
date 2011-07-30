@@ -34,11 +34,11 @@ $(function(){
 			TS.users[user] = {};
 		},
 		
-		drawTask: function(item, insertionMethod) {
+		drawTask: function(item, insertionMethod) { 
 			if(!insertionMethod) {
 				var insertionMethod = TS.insertionMethod;
 			}
-
+			
 			$('<li />')
 				.addClass('Shadow')
 				.data('taskId', item.id)
@@ -321,6 +321,21 @@ $(function(){
 	createToggle('readOnly');
 	createToggle('addToBottom');
 		
+	$('#collapseHandle img').click(function(){
+		var panel = $('.TopPanel');
+		
+		if(!panel.data('expanded')) {
+			panel.data('oldHeight', panel.height());
+			panel.animate({height: 0});
+			panel.data('expanded', true);
+		} else {
+			panel.animate({height: panel.data('oldHeight')});
+			panel.data('expanded', false);
+		}
+	});
+	
+	$('#listCombo').chosen(); 
+	
 	$('#man').click(function(){$(this).animate({top: 220})});
 	
 	TS.code = '';
