@@ -18,6 +18,9 @@ $(function(){
 		users: {},
 		insertionMethod: 'prependTo',
 		stopClick: false,
+		private: true,
+		readOnly: true,
+		addToBottom: false, 
 		
 		showMan: function() {
 			$('#man').animate({top: 127});
@@ -257,18 +260,31 @@ $(function(){
 			$('.NewTask').val('').focus();
 		});
 	
-	$('#clearFinished').click(function(){
-		if(confirm('Are you sure you want to clear all finished tasks?')) {
-			$.post(TS.backendUrl(), {clearFinished: true});
-		}
-	});
+	$('#clearFinished')
+		.mousedown(function(){ $(this).addClass('ButtonDown') })
+		.mouseup(function(){ $(this).removeClass('ButtonDown') })
+		.mouseout(function(){$(this).removeClass('ButtonDown') })
+		.click(function(){
+			if(confirm('Are you sure you want to clear all finished tasks?')) {
+				$.post(TS.backendUrl(), {clearFinished: true});
+			}
+		});
 	
-	$('#clearAll').click(function(){
-		if(confirm('Are you sure you want to clear all tasks?')) {
-			$.post(TS.backendUrl(), {clearAll: true});
-		}
-	});
+	$('#clearAll')
+		.mousedown(function(){ $(this).addClass('ButtonDown') })
+		.mouseup(function(){ $(this).removeClass('ButtonDown') })
+		.mouseout(function(){$(this).removeClass('ButtonDown') })
+		.click(function(){		
+			if(confirm('Are you sure you want to clear all tasks?')) {
+				$.post(TS.backendUrl(), {clearAll: true});
+			}
+		});
 	
+	$('#share')
+		.mousedown(function(){ $(this).addClass('ButtonDown') })
+		.mouseup(function(){ $(this).removeClass('ButtonDown') })
+		.mouseout(function(){$(this).removeClass('ButtonDown') });
+				
 	$('.ActiveTasks').sortable({
 		stop: function(e, ui) {
 			var item = $(ui.item);
@@ -284,6 +300,27 @@ $(function(){
 		}
 	});
 	
+	var createToggle = function(name) { 
+		$('#' + name + 'Toggle')
+			.mousedown(function(){
+				$(this).addClass(TS[name] ? 'ToggleOnDown' : 'ToggleOffDown');
+			})
+			.click(function(){
+				$(this)
+					.removeClass(TS[name] ? 'ToggleOnDown ToggleOn' : 'ToggleOffDown ToggleOff')
+					.addClass(TS[name] ? 'ToggleOff' : 'ToggleOn');
+					
+				TS[name] = !TS[name];
+			})
+			.mouseup(function() {
+				$(this).removeClass('ToggleOnDown ToggleOffDown');
+			})
+	};
+	
+	createToggle('private');
+	createToggle('readOnly');
+	createToggle('addToBottom');
+		
 	$('#man').click(function(){$(this).animate({top: 220})});
 	
 	TS.code = '';

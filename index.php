@@ -42,14 +42,23 @@
 			<input class="NewTask Rounded"><img src="images/plus_2.png" id="newTaskPlus" />
 
 		<div class="TaskListButtons">
-			<div id="clearFinished">
-				<img src="images/clear_finished.png" />
-				Clear Finished
+			<div class="ToggleGroup" id="private">
+				<span class="ToggleLabel">Private</span>
+				<span class="Toggle ToggleOn" id="privateToggle"></span>
 			</div>
-			<div id="clearAll">
-				<img src="images/clear_all.png" />
-				Clear All
-			</div>
+			<div class="ToggleGroup" id="readOnly">
+				<span class="ToggleLabel">Read Only</span>
+				<span class="Toggle ToggleOn" id="readOnlyToggle"></span>
+			</div>			
+			<div class="ToggleGroup" id="addToBottom">
+				<span class="ToggleLabel">Add to Bottom</span>
+				<span class="Toggle ToggleOff" id="addToBottomToggle"></span>
+			</div>			
+			<div id="share"></div>
+			
+			<div id="clearAll"></div>
+			<div id="clearFinished"></div>
+			<div class="clear"></div>
 		</div>
 		<div class="Tasks Rounded">
 			<ul class="TaskList ActiveTasks"></ul>

@@ -48,7 +48,7 @@
 .TaskListButtons { 
 	margin-top: 2em;
 	margin-bottom: .3em;
-	text-align: right;
+	padding-bottom: 8px;
 }
 
 .TaskListButtons img {
@@ -65,6 +65,62 @@
 	cursor: pointer;
 	padding: .25em;
 }
+
+.ToggleGroup {
+	float: left;
+	margin-right:5px;
+}
+
+#share {
+	float: left;
+	padding: 0; 
+	width: 48px;
+	height: 22px;
+	background-image: url(../images/share.png);
+	margin-right: 5px;
+	margin-top: 3px;
+}
+
+#clearFinished {
+	padding: 0; 
+	float: right;
+	width: 127px;
+	height: 22px;
+	background-image: url(../images/clear_completed.png);
+	margin-right: 5px;
+	margin-top: 3px;
+}
+
+#clearAll {
+	padding: 0;
+	float: right;
+	width: 77px;
+	height: 22px;
+	background-image: url(../images/clear_all.png);
+	margin-top: 3px;
+}
+
+.ButtonDown { background-position: 0px 21px }
+
+.ToggleLabel { 
+	display: block;
+	float: left;
+	padding-bottom:6px;
+	padding-right: 4px;
+}
+
+.Toggle { 
+	background-image: url(../images/on-off.png);
+	width: 49px;
+	height: 22px;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.ToggleOn { background-position: 0px 0px; }
+.ToggleOnDown { background-position: 49px 0px; }
+.ToggleOff { background-position: 0px 22px; }
+.ToggleOffDown { background-position: 49px 22px; }
 
 .Tasks { 
 	background-image: url(../images/diagonals.png);
@@ -110,7 +166,7 @@
 #man { 
 	position: absolute; 
 	left: 20px;
-	top: 172px;
+	top: 175px;
 	z-index: 2; 
 	cursor: pointer;
 }
