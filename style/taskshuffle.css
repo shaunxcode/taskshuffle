@@ -114,8 +114,6 @@ h1 { color: #6B6B6B; }
 .ToggleOff { background-position: 0px 22px; }
 .ToggleOffDown { background-position: 49px 22px; }
 
-.TopPanel { overflow: hidden; }
-
 #collapseHandle { 
 	border-top: 1px solid #eee; 
 	padding-right: 15px;
@@ -166,6 +164,7 @@ h1 { color: #6B6B6B; }
 
 .container { position: relative; }
 #man { 
+	visibility: hidden; 
 	position: absolute; 
 	left: 20px;
 	top: 175px;

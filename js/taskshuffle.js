@@ -23,7 +23,7 @@ $(function(){
 		addToBottom: false, 
 		
 		showMan: function() {
-			$('#man').animate({top: 127});
+			$('#man').animate({top: 127, visibility: 'visible'});
 		},
 		
 		save: function(item) {
@@ -326,17 +326,17 @@ $(function(){
 		
 		if(!panel.data('expanded')) {
 			panel.data('oldHeight', panel.height());
-			panel.animate({height: 0});
+			panel.css('overflow', 'hidden').animate({height: 0});
 			panel.data('expanded', true);
 		} else {
-			panel.animate({height: panel.data('oldHeight')});
+			panel.css('overflow', 'visible').animate({height: panel.data('oldHeight')});
 			panel.data('expanded', false);
 		}
 	});
 	
 	$('#listCombo').chosen(); 
 	
-	$('#man').click(function(){$(this).animate({top: 220})});
+	$('#man').click(function(){$(this).animate({top: 220, visibility: 'hidden'})});
 	
 	TS.code = '';
 	$(window).keyup(function(e) {
