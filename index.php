@@ -1,4 +1,15 @@
 <?php
+	session_start();
+	
+	if(isset($_POST['login'])) {
+		$_SESSION['authed'] = uniqid();
+	}
+	
+	if(!isset($_SESSION['authed'])) {
+		echo '<form method="POST"><input type="submit" name="login" value="login"></form>';
+		die();
+	}
+	
 	$file = isset($_GET['file']) ? ($_GET['file'][0] == '/' ? substr($_GET['file'], 1) : $_GET['file']): false;
 	if(!$file) {
 		$file = 'Project Name';
@@ -84,5 +95,6 @@
 		</div>
 		<img src="images/745kman.png" id="man" />
 	</div>
+	<?php echo $_SESSION['authed']; ?>
 </body>
 </html>

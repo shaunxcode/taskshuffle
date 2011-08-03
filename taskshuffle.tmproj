@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>js/taskshuffle.js</string>
+	<string>style/taskshuffle.css</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -40,28 +40,28 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>4</integer>
+				<integer>55</integer>
 				<key>line</key>
-				<integer>39</integer>
+				<integer>25</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>27</integer>
+			<integer>10</integer>
 		</dict>
 		<key>style/taskshuffle.css</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>56</integer>
+				<integer>7</integer>
 				<key>line</key>
-				<integer>39</integer>
+				<integer>164</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>134</integer>
+			<integer>132</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>

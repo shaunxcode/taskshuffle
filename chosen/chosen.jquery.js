@@ -86,9 +86,9 @@
       return this.set_tab_index();
     };
     Chosen.prototype.register_observers = function() {
-      this.container.click(__bind(function(evt) {
-        return this.container_click(evt);
-      }, this));
+	  this.container.mousedown(__bind(function(evt) {
+		return this.container_click(evt);
+	  }, this));
       this.container.mouseenter(__bind(function(evt) {
         return this.mouse_enter(evt);
       }, this));
@@ -130,7 +130,7 @@
       }
     };
     Chosen.prototype.container_click = function(evt) {
-      if (evt && evt.type === "click") {
+      if (evt && evt.type === "mousedown") {
         evt.stopPropagation();
       }
       if (!this.pending_destroy_click) {
