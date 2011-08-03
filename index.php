@@ -5,11 +5,6 @@
 		$_SESSION['authed'] = uniqid();
 	}
 	
-	if(!isset($_SESSION['authed'])) {
-		echo '<form method="POST"><input type="submit" name="login" value="login"></form>';
-		die();
-	}
-	
 	$file = isset($_GET['file']) ? ($_GET['file'][0] == '/' ? substr($_GET['file'], 1) : $_GET['file']): false;
 	if(!$file) {
 		$file = 'Project Name';
@@ -31,10 +26,13 @@
 	<link rel="stylesheet" href="style/blueprint/screen.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="style/taskshuffle.css" type="text/css" media="all" />
     <link rel="stylesheet" href="chosen/chosen.css" />
-
+	<link rel="apple-touch-icon" href="ts_icon.png" />	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="chosen/chosen.jquery.js"></script>
+</head>
+<body>
+<?php if(isset($_SESSION['user'])) { ?>
 	<script type="text/javascript" src="js/taskshuffle.js"></script>
 	<script type="text/javascript">
 		$(function(){
@@ -42,9 +40,6 @@
 			$('.ListName').text(TS.name);
 		});
 	</script>
-	<link rel="apple-touch-icon" href="ts_icon.png" />
-</head>
-<body>
 	<div class="container">
 		<div class="TopPanel span-24">
 			<div class="LeftColumn span-18 first">
@@ -95,6 +90,48 @@
 		</div>
 		<img src="images/745kman.png" id="man" />
 	</div>
-	<?php echo $_SESSION['authed']; ?>
+<?php } else  { ?>
+	<div class="container" id="loginContainer">
+		<div class="span-24 first last LoginHeader">
+			<img src="images/title_2.png" width="465"/>
+		</div>
+		<div class="LoginBox span-12 first">
+			<h3>Create your free account</h3>
+			<form class="Rounded">
+				<label for="registerEmail">Your Email</label>
+				<input type="text" id="registerEmail" name="registerEmail" />
+				<label for="registerPassword">Password</label>
+				<input type="password" id="registerPassword1" name="registerPassword1" />
+				<input type="password" id="registerPassword2" name="registerPassword2" />
+				<input type="text" id="registerListName" name="registerListName" />
+				<input type="submit" value="Register" name="Register" />
+			</form>
+		</div>
+		<div class="LoginBox span-12 last">
+			<h3>Sign into your lists!</h3>
+			<form class="Rounded">
+				<label for="loginEmail">Your Email</label>
+				<input type="text" id="loginEmail" name="loginEmail" />
+				<label for="loginPassword">Password</label>
+				<input type="password" id="loginPassword" name="loginPassword"/>
+				<input type="submit" value="Login" />
+				<div id="loginRememberGroup">
+					<div class="ToggleGroup" id="loginRemember">
+						<span class="ToggleLabel">Stay signed in on this computer?</span>
+						<span class="Toggle ToggleOn" id="loginRememberToggle"></span>
+						<a class="LoginBoxLink" href="#">Forgot Password?</a>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div id="loginBoxBottom">You will be taken to your default list</div>
+			</form>
+		</div>
+		<div class="span-24 first last" id="loginFooter">
+			<h3>No time to Register?! Start a list right away!</h3>
+			<div id="noTime">You must register an account to have more than one list</div>
+			<input type="text" id="noTimeListName" />
+			<input type="submit" value="Go!" />
+	</div>
+<?php } ?>
 </body>
 </html>

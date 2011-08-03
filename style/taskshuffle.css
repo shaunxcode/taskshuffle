@@ -171,3 +171,84 @@ h1 { color: #6B6B6B; }
 	z-index: 2; 
 	cursor: pointer;
 }
+
+#loginContainer h3 {
+	font-size: 27px;
+	margin: 0;
+	margin-bottom: 18px;
+	text-align: center;
+	color: #757575;	
+}
+
+.LoginHeader { 
+	text-align: center; 
+	margin-top: 60px;
+	margin-bottom: 80px;
+}
+
+.LoginBox { color: #757575; }
+
+.LoginBox form { 
+	width: 430px;
+	background: #f4f4f4;
+	padding: 10px;
+	border: 0px;
+	-moz-box-shadow: 0px -3px 3px #b0b0b0;
+	-webkit-box-shadow: 0px -3px 3px #b0b0b0;
+	box-shadow: 0px -3px 3px #b0b0b0;
+	color: inherit;
+}
+
+.LoginBox form label { 
+	font-size: 19px;
+	display: inline-block;
+	width: 100px;
+	padding-right: 5px;
+	text-align: right;
+	color: inherit;
+}
+
+.LoginBox input[type="text"], input[type="password"] {
+	height: 30px;
+	padding: 5px;
+	font-size: 19px;
+	border: 1px solid #c4c4c4;
+	margin-top: 0px;
+	margin-bottom: 0.5em;
+	color: inherit;
+}
+
+#registerEmail { width: 305px;}
+#registerPassword1 { margin-right: 6px; }
+#registerPassword1, #registerPassword2 { width: 141px; }
+#registerListName { width: 280px; margin-left: 10px;}
+
+#loginEmail { width: 305px;}
+#loginPassword {width: 200px;}
+
+#loginRememberGroup { 
+	margin-left: 12px;
+	font-size: 110%;
+}
+
+#loginBoxBottom { 
+	text-align: center;
+	font-size: 110%;
+	margin-bottom:5px;
+}
+
+.LoginBoxLink { 
+	display: block;
+	float: right;
+	padding-bottom:6px;
+	padding-right: 4px;
+	margin-left: 15px; 
+}
+
+#loginFooter { 
+	margin-top: 40px;
+	text-align: center;
+}
+
+#noTimeListName { width: 425px; height: 30px; font-size: 19px; color: inherit;}
+#noTime { font-size: 115%; margin-bottom: 10px;}
