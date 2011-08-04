@@ -2,6 +2,7 @@ $(function(){
 	window.TSS = {	
 		lists: {},
 		listViews: {},
+		saving: {},
 		
 		createButton: function() {
 			return $('<div />')
@@ -27,8 +28,10 @@ $(function(){
 						
 						var data = {uqn: uqn};
 						data[property] = TSS.lists[uqn][property];
-						
-						$.post('backend.php',data);
+						TSS.saving[uqn][property] = true;
+						$.post('backend.php', data, function(){
+							TSS.saving[uqn][property] = false;
+						});
 					})
 					.mouseup(function() {
 						$(this).removeClass('ToggleOnDown ToggleOffDown');
@@ -85,15 +88,16 @@ $(function(){
 	         			if(!TSS.lists[item.uqn]) {
 	         				TSS.lists[item.uqn] = item;
 							TSS.listViews[item.uqn] = TSS.drawList(item);
+							TSS.saving[item.uqn] = {};
 							updated = true;
 	         			}
 				
-						if(TSS.lists[item.uqn].private != item.private) {
+						if(TSS.lists[item.uqn].private != item.private && !TSS.saving[item.uqn].private) {
 							$('.Toggleprivate', TSS.listViews[item.uqn]).removeClass('ToggleOn ToggleOff').addClass(item.private ? 'ToggleOn' : 'ToggleOff');
 							updated = true;
 						}
 						
-						if(TSS.lists[item.uqn].readOnly != item.readOnly) {
+						if(TSS.lists[item.uqn].readOnly != item.readOnly && !TSS.saving[item.uqn].readOnly) {
 							$('.TogglereadOnly', TSS.listViews[item.uqn]).removeClass('ToggleOn ToggleOff').addClass(item.readOnly ? 'ToggleOn' : 'ToggleOff');
 							updated = true;
 						}
