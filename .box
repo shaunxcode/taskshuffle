@@ -3,7 +3,7 @@ index_list: [index.php]
 
 url_rewrites:
     -
-        rule: ^(.*\/?)$ /index.php?file=$1 
+        rule: ^(.*\/?)$ /index.php?list=$1 
         conditions:
             - "!-f $request_filename"
             - "!-d $request_filename"
