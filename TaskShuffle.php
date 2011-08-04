@@ -59,6 +59,14 @@ class TaskShuffle {
 		}
 	}
 	
+	public static function setListPrivacy($uqn, $state) {
+		return self::getListByUQN($uqn)->private = $state;
+	}
+	
+	public static function setListReadOnly($uqn, $state) {
+		return self::getListByUQN($uqn)->readOnly = $state;
+	}
+	
 	public static function getUser($uid) {
 		return Collection::User()->get($uid);
 	}
@@ -89,6 +97,10 @@ class Errors {
 		self::$errors[] = $error;
 	}
 	
+	public static function doExist() { 
+		return !empty(self::$errors);
+	}
+	
 	public static function getAll() {
 		return empty(self::$errors) ? false : self::$errors;
 	}
@@ -100,7 +112,7 @@ function applyHandler($handler, $data) {
 		$args = array();
 		foreach($meta->getParameters() as $param) {
 			if(isset($data[$param->getName()])) {
-				$args[] = $data[$param->getName()];
+				$args[] = __boolCheck($data[$param->getName()]);
 			} else if($param->isOptional()) {
 				$args[] = $param->getDefaultValue();
 			} else {
@@ -115,7 +127,12 @@ function applyHandler($handler, $data) {
 
 function HandlePost($postName, $handler) {
 	if(isset($_POST[$postName])) {
-		return applyHandler($handler, $_POST);
+		$result = applyHandler($handler, $_POST);
+		if(Errors::doExist()) {
+			return Errors::getAll();
+		}
+		
+		return $result;
 	}
 }
 
@@ -139,10 +156,14 @@ function HandleGetJSON($paramName, $handlers) {
 	}
 }
 
+function __boolCheck($val) {
+	return $val == 'false' ? false : ($val == 'true' ? true : $val);
+}
+
 function PostVar($key, $val = false) {
-	return isset($_POST[$key]) ? $_POST[$key] : $val;
+	return __boolCheck(isset($_POST[$key]) ? $_POST[$key] : $val);
 }
 
 function GetVar($key, $val = false) {
-	return isset($_GET[$key]) ? $_GET[$key] : $val;
+	return __boolCheck(isset($_GET[$key]) ? $_GET[$key] : $val);
 }

@@ -98,6 +98,15 @@ h1 { color: #6B6B6B; }
 	cursor: pointer;
 }
 
+.TrashList {
+	padding: 0;
+	float: right;
+	width: 76px;
+	height: 22px;
+	background-image: url(../images/trash_list.png);
+	cursor: pointer;
+}
+
 .ButtonDown { background-position: 0px 21px }
 
 .ToggleLabel { 
@@ -113,6 +122,7 @@ h1 { color: #6B6B6B; }
 	height: 22px;
 	overflow: hidden;
 	display: inline-block;
+	cursor: pointer;
 }
 
 .ToggleOn { background-position: 0px 0px; }

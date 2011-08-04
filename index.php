@@ -229,6 +229,7 @@ HandlePost('Login', function($loginEmail, $loginPassword) {
 				<input type="text" id="noTimeListName" />
 				<input type="submit" value="Go!" id="goButton"/>
 			</form>
+		</div>
 	</div>
 <?php } ?>
 </body>

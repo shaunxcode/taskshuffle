@@ -40,6 +40,14 @@ HandleGetJSON('method', array(
 	}
 ));
 
+HandlePostJSON('private', function($uqn, $private) {
+	return TaskShuffle::setListPrivacy($uqn, $private);
+});
+
+HandlePostJSON('readOnly', function($uqn, $readOnly) {
+	return TaskShuffle::setListReadOnly($uqn, $readOnly);
+});
+
 HandlePostJSON('list', function($list) {
 	return TaskShuffle::createUserList(Session::uid(), $list['name']);
 });

@@ -1,13 +1,49 @@
 $(function(){
 	window.TSS = {	
 		lists: {},
+		listViews: {},
+		
+		createButton: function() {
+			return $('<div />')
+				.mousedown(function(){ $(this).addClass('ButtonDown') })
+				.mouseup(function(){ $(this).removeClass('ButtonDown') })
+				.mouseout(function(){$(this).removeClass('ButtonDown') });
+		},
+		
+		createToggle: function(uqn, property, label) {
+			return $('<div />')
+				.addClass('ToggleGroup')
+				.append($('<span />').addClass('ToggleLabel').text(label))
+				.append($('<span />').addClass('Toggle' + property + ' Toggle ' + (TSS.lists[uqn][property] ? 'ToggleOn' : 'ToggleOff'))
+					.mousedown(function(){
+						$(this).addClass(TSS.lists[uqn][property] ? 'ToggleOnDown' : 'ToggleOffDown');
+					})
+					.click(function(){
+						$(this)
+							.removeClass(TSS.lists[uqn][property] ? 'ToggleOnDown ToggleOn' : 'ToggleOffDown ToggleOff')
+							.addClass(TSS.lists[uqn][property] ? 'ToggleOff' : 'ToggleOn');
+
+						TSS.lists[uqn][property] = !TSS.lists[uqn][property];
+						
+						var data = {uqn: uqn};
+						data[property] = TSS.lists[uqn][property];
+						
+						$.post('backend.php',data);
+					})
+					.mouseup(function() {
+						$(this).removeClass('ToggleOnDown ToggleOffDown');
+					}));
+		},
+			
 		drawList: function(list) {
-			$('<div />')
+			try { 
+			var name = list.uqn.split('.').pop().replace(/_/g, ' ');
+			return $('<div />')
 				.addClass('container')
 				.append(
 					$('<div />')
 						.addClass('span-11 first')
-						.append($('<h3 />').text(list.uqn.split('.').pop().replace(/_/g, ' ')))
+						.append($('<h3 />').text(name))
 						.append($('<a />').text('View List').attr('href', '/' + list.uqn))
 						.append($('<a />').text('Copy URL'))
 						.append($('<div />')
@@ -15,24 +51,20 @@ $(function(){
 							.text(list.itemsTotal + ' Items')))
 				.append($('<div />')
 					.addClass('span-11')
-					.append(
-						$('<div />')
-							.addClass('ToggleGroup')
-							.attr('id', list.uqn + '-private')
-							.append($('<span />').addClass('ToggleLabel').text('Private'))
-							.append($('<span />').addClass('Toggle ToggleOn').attr('id', list.uqn + '-privateToggle')))
-					.append(
-						$('<div />')
-							.addClass('ToggleGroup')
-							.attr('id', list.uqn + '-readOnly')
-							.append($('<span />').addClass('ToggleLabel').text('Read Only'))
-							.append($('<span />').addClass('Toggle ToggleOn').attr('id', list.uqn + '-readOnlyToggle')))
+					.append(TSS.createToggle(list.uqn, 'private', 'Private'))
+					.append(TSS.createToggle(list.uqn, 'readOnly', 'Read Only'))
 					.append(
 						$('<div />').addClass('clear').text('Shared')))
-				.append($('<div />').addClass('span-2 last').text('trash list'))
+				.append($('<div />').addClass('span-2 last').html(TSS.createButton().addClass('TrashList').click(function(){
+					if(confirm("Are you sure you want to trash \"" + name + "\"")) {
+
+					}		
+				})))
 				.hide()
 				.appendTo('#listsContainer')
 				.fadeIn('slow');
+			}				
+			catch (e) { console.log(e) }
 		},
 		
 		save: function(list) {
@@ -52,10 +84,20 @@ $(function(){
 						ids[item.uqn] = true;
 	         			if(!TSS.lists[item.uqn]) {
 	         				TSS.lists[item.uqn] = item;
-							TSS.drawList(item);
+							TSS.listViews[item.uqn] = TSS.drawList(item);
 							updated = true;
 	         			}
 				
+						if(TSS.lists[item.uqn].private != item.private) {
+							$('.Toggleprivate', TSS.listViews[item.uqn]).removeClass('ToggleOn ToggleOff').addClass(item.private ? 'ToggleOn' : 'ToggleOff');
+							updated = true;
+						}
+						
+						if(TSS.lists[item.uqn].readOnly != item.readOnly) {
+							$('.TogglereadOnly', TSS.listViews[item.uqn]).removeClass('ToggleOn ToggleOff').addClass(item.readOnly ? 'ToggleOn' : 'ToggleOff');
+							updated = true;
+						}
+						
 						TSS.lists[item.uqn] = item;
 	         		});
 
