@@ -1,6 +1,7 @@
 <?php
-
 namespace TaskShuffle;
+session_start();
+require_once 'TaskShuffle.php';
 
 function verifyItem($item) {
 	foreach(array_keys($item) as $key) {
@@ -16,11 +17,38 @@ function getMessages($filename) {
 	return json_decode('[' . substr(file_get_contents($filename), 0, -2) .']');
 }
 
+HandleGetJSON('method', array(
+	'emailDistinct' => function($email) {
+		return TaskShuffle::emailDistinct($email);
+	},
+	'lists' => function() {
+		if($user = TaskShuffle::getUser(Session::uid())) {
+			return array(
+				'lists' => array_map(
+					function($uqn) {
+						return TaskShuffle::getListByUQN($uqn)
+							->getInfo()
+							->set('uqn', $uqn)
+							->toArray();
+					}, 
+					array_map(
+						function($list) use($user) {
+							return $user->email . '.' . $list;
+						}, 
+						$user->lists)));
+		}
+	}
+));
+
+HandlePostJSON('list', function($list) {
+	return TaskShuffle::createUserList(Session::uid(), $list['name']);
+});
+
 if(!isset($_GET['file'])) {
 	die('MUST SPECIFY FILE');
 }
 
-$filename  = dirname(__FILE__) . '/data/' . $_GET['file'] . '.txt';
+$filename  = dirname(__FILE__) . '/data/' . $_GET['file'];
 
 if(!file_exists($filename)) {
 	touch($filename);

@@ -1,20 +1,46 @@
 <?php
-	session_start();
+
+namespace TaskShuffle;
+session_start();
+require_once 'TaskShuffle.php';
+
+//oauth secret
+//MlHWRMVEi9FjdH8ADzCy01sm
 	
-	if(isset($_POST['login'])) {
-		$_SESSION['authed'] = uniqid();
+HandleGet('action', array(
+	'logout' => function() {
+		session_destroy();
+		header("location:/");
+	},
+	
+	'settings' => function() {
+		
 	}
-	
-	$file = isset($_GET['file']) ? ($_GET['file'][0] == '/' ? substr($_GET['file'], 1) : $_GET['file']): false;
-	if(!$file) {
-		$file = 'Project Name';
-		header('location:/' . uniqid());
-		die();
+));
+
+HandlePost('Register', function($registerPassword1, $registerPassword2, $registerEmail, $registerListName) {	
+	if($registerPassword1 != $registerPassword2 || empty($registerPassword1)) {
+		Errors::add('Passwords must match');
+	} 
+	else if(empty($registerListName)) {
+		Errors::add('Must provide name for your first list');
 	}
-	
-	//oauth secret
-	//MlHWRMVEi9FjdH8ADzCy01sm
-	
+	else {
+		if($user = TaskShuffle::register($registerEmail, $registerPassword1)) {
+			$list = TaskShuffle::createUserList($user->id, $registerListName);
+			Session::uid($user->id);
+			header("location:index.php?list=" . $list->getName());
+		}
+	}
+});
+
+HandlePost('Login', function($loginEmail, $loginPassword) {
+	if($user = TaskShuffle::authenticate($loginEmail, $loginPassword)) {
+		Session::uid($user->id);
+		header("location:/");
+	}
+});
+
 
 ?>
 <!DOCTYPE html>
@@ -33,11 +59,18 @@
 	<script type="text/javascript" src="js/taskshuffle.js"></script>
 </head>
 <body>
-<?php if(isset($_SESSION['user'])) { ?>
+<?php if(Session::uid()) { 
+	$user = TaskShuffle::getUser(Session::uid());
+	$userMenu = '<div class="UserMenu"><strong>' . $user->email .'</strong> | <a href="index.php?action=settings">Settings</a> | <a href="index.php?action=logout">Logout</a></div>';
+		
+	if($list = GetVar('list')) {
+		$list = $list[0] == '/' ? substr($list, 1) : $list;
+?>
 	<script type="text/javascript">
 		$(function(){
-			TS.name = <?php echo json_encode($file); ?>;
-			$('.ListName').text(TS.name);
+			TS.name = <?php echo json_encode($list); ?>;
+			$('.ListName').text(TS.name.split('.').pop());
+			TS.connect();
 		});
 	</script>
 	<div class="container">
@@ -69,7 +102,7 @@
 			
 			<div class="RightColumn span-6 last">
 				<img src="images/title_2.png">
-				<div class="UserMenu"><strong>Username</strong> | Settings | Logout</div>
+				<?php echo $userMenu; ?>
 				
 				<div class="clear"></div>
 				<div id="ListComboContainer"> 				
@@ -90,38 +123,90 @@
 		</div>
 		<img src="images/745kman.png" id="man" />
 	</div>
-<?php } else  { ?>
+<?php 
+	} 
+	else {?>
+<div class="container" id="yourListsContainer">
+	<div class="LeftColumn span-18 first">
+		<h1 class="ListName">Your Account</h1>
+	</div>
+	<div class="RightColumn span-6 last">
+		<img src="images/title_2.png">
+
+		<?php echo $userMenu; ?>
+		
+		<div class="clear"></div>
+		<div id="ListComboContainer"> 				
+			<select id="listCombo"><option>Choose a list</option></select>
+		</div>
+	</div>
+	<div class="span-24 first last">
+		<input type="text" class="Rounded NewList">
+		<img src="images/plus_2.png" id="newListPlus" />
+	</div>
+	<h2>Your Lists</h2>
+	<script type="text/javascript" src="js/summary.js"></script>
+	<div id="listsContainer"></div>
+</div>
+
+<?php
+	
+	}
+} else  { 
+
+?>
 	<script type="text/javascript">
 		$(function(){
 			TS.createButton('registerButton');
 			TS.createButton('loginButton');
+			TS.createButton('goButton');
 			TS.createToggle('loginRemember');
+			
+			var checkEmailDistinct = function() { 
+				$.get('backend.php', {method: 'emailDistinct', email: $(this).val()}, function(result) {
+					console.log(result);
+				})
+			};
+			
+			var checkPasswordMatch = function() {
+				return $('#registerPassword1').val().length > 0 && 
+					   $('registerPassword1').val() == $('#registerPassword2').val();
+			};
+			
+			$('#registerEmail').blur(checkEmailDistinct);
+			$('#registerPassword1, #registerPassword2').blur(checkPasswordMatch); 
+			$('#registerForm').submit(function(){
+				return true;
+			});
 		});
 	</script>
 	<div class="container" id="loginContainer">
 		<div class="span-24 first last LoginHeader">
 			<img src="images/splash_logo.png" />
 		</div>
+	<?php if($errors = Errors::getAll()) { ?>
+		<div class="span-24 first last LoginErrors"><?php echo implode('<br />', $errors); ?></div>
+	<?php } ?>
 		<div class="LoginBox span-12 first">
 			<h3>Create your free account</h3>
-			<form class="Rounded">
+			<form method="POST" class="Rounded" id="registerForm">
 				<label for="registerEmail">Your Email</label>
-				<input type="text" id="registerEmail" name="registerEmail" />
+				<input type="text" id="registerEmail" value="<?php echo PostVar('registerEmail'); ?>"name="registerEmail" />
 				<label for="registerPassword">Password</label>
-				<input type="password" id="registerPassword1" name="registerPassword1" />
-				<input type="password" id="registerPassword2" name="registerPassword2" />
-				<input type="text" id="registerListName" name="registerListName" />
-				<input type="submit" value="Register" id="registerButton" />
+				<input type="password" id="registerPassword1" value="<?php echo PostVar('registerPassword2'); ?>" name="registerPassword1" />
+				<input type="password" id="registerPassword2" value="<?php echo PostVar('registerPassword2'); ?>" name="registerPassword2" />
+				<input type="text" id="registerListName" value="<?php echo PostVar('registerListName'); ?>" name="registerListName" />
+				<input type="submit" name="Register" value="Register" id="registerButton" />
 			</form>
 		</div>
 		<div class="LoginBox span-12 last">
 			<h3>Sign into your lists!</h3>
-			<form class="Rounded">
+			<form method="POST" class="Rounded">
 				<label for="loginEmail">Your Email</label>
 				<input type="text" id="loginEmail" name="loginEmail" />
 				<label for="loginPassword">Password</label>
 				<input type="password" id="loginPassword" name="loginPassword"/>
-				<input type="submit" value="Login" id="loginButton" />
+				<input type="submit" name="Login" value="Login" id="loginButton" />
 				<div id="loginRememberGroup">
 					<div class="ToggleGroup" id="loginRemember">
 						<span class="ToggleLabel">Stay signed in on this computer?</span>

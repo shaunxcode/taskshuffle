@@ -360,6 +360,4 @@ $(function(){
 			TS.code = '';
 		}
 	});
-	
-	TS.connect();
 });
