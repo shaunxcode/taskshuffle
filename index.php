@@ -29,7 +29,7 @@ HandlePost('Register', function($registerPassword1, $registerPassword2, $registe
 		if($user = TaskShuffle::register($registerEmail, $registerPassword1)) {
 			$list = TaskShuffle::createUserList($user->id, $registerListName);
 			Session::uid($user->id);
-			header("location:index.php?list=" . $list->getName());
+			header("location:/" . $list->getName());
 		}
 	}
 });
@@ -61,10 +61,14 @@ HandlePost('Login', function($loginEmail, $loginPassword) {
 <body>
 <?php if(Session::uid()) { 
 	$user = TaskShuffle::getUser(Session::uid());
-	$userMenu = '<div class="UserMenu"><strong>' . $user->email .'</strong> | <a href="index.php?action=settings">Settings</a> | <a href="index.php?action=logout">Logout</a></div>';
-		
+	$userMenu = '<div class="UserMenu"><strong>' . $user->email .'</strong> | <a href="/">Settings</a> | <a href="index.php?action=logout">Logout</a></div>';
+
 	if($list = GetVar('list')) {
 		$list = $list[0] == '/' ? substr($list, 1) : $list;
+		if(!TaskShuffle::getListByUQN($list)) {
+			die("List does not exist. Create it? ");
+		}
+		
 ?>
 	<script type="text/javascript">
 		$(function(){

@@ -85,6 +85,7 @@ h1 { color: #6B6B6B; }
 	background-image: url(../images/clear_completed.png);
 	margin-right: 5px;
 	margin-top: 3px;
+	cursor: pointer;
 }
 
 #clearAll {
@@ -94,6 +95,7 @@ h1 { color: #6B6B6B; }
 	height: 22px;
 	background-image: url(../images/clear_all.png);
 	margin-top: 3px;
+	cursor: pointer;
 }
 
 .ButtonDown { background-position: 0px 21px }
@@ -121,7 +123,7 @@ h1 { color: #6B6B6B; }
 #collapseHandle { 
 	border-top: 1px solid #eee; 
 	padding-right: 15px;
-	padding-bottom: 20px;
+	padding-bottom: 30px;
 }
 
 #collapseHandle img { cursor: pointer; display: block; float: right; }
@@ -235,6 +237,7 @@ h1 { color: #6B6B6B; }
 	padding: 0;
 	color: transparent;
 	cursor: pointer;
+	background: inherit;
 }
 
 #registerButton { 
@@ -296,4 +299,27 @@ h1 { color: #6B6B6B; }
 	font-size: 175%;
 	margin-bottom: 1em;
 	font-weight: bold;
+}
+
+#listsContainer {
+	color: #777777;
+}
+
+#listsContainer > .container {
+	padding-top: 10px;
+	padding-bottom: 14px;
+	border-bottom: 1px solid #dbdbdb;
+}
+
+#listsContainer h3 {
+	display: inline-block;
+	margin-right: 5px;
+	color: inherit;
+	font-size: 21px;
+	width: 200px;
+	margin-bottom: 10px;
+}
+
+#listsContainer a {
+	margin-right: 5px;
 }
