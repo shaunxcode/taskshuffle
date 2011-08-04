@@ -6,6 +6,30 @@ var keys = {
 
 $(function(){
 	window.TS = {
+		createToggle: function(name) { 
+			return $('#' + name + 'Toggle')
+				.mousedown(function(){
+					$(this).addClass(TS[name] ? 'ToggleOnDown' : 'ToggleOffDown');
+				})
+				.click(function(){
+					$(this)
+						.removeClass(TS[name] ? 'ToggleOnDown ToggleOn' : 'ToggleOffDown ToggleOff')
+						.addClass(TS[name] ? 'ToggleOff' : 'ToggleOn');
+
+					TS[name] = !TS[name];
+				})
+				.mouseup(function() {
+					$(this).removeClass('ToggleOnDown ToggleOffDown');
+				})
+		},
+
+		createButton: function(id) {
+			return $('#' + id)
+				.mousedown(function(){ $(this).addClass('ButtonDown') })
+				.mouseup(function(){ $(this).removeClass('ButtonDown') })
+				.mouseout(function(){$(this).removeClass('ButtonDown') });
+		},
+		
 		active: true,
 		name: false,
 		backendUrl: function() { 
@@ -21,6 +45,7 @@ $(function(){
 		private: true,
 		readOnly: true,
 		addToBottom: false, 
+		loginRemember: true, 
 		
 		showMan: function() {
 			$('#man').animate({top: 127, visibility: 'visible'});
@@ -260,30 +285,21 @@ $(function(){
 			$('.NewTask').val('').focus();
 		});
 	
-	$('#clearFinished')
-		.mousedown(function(){ $(this).addClass('ButtonDown') })
-		.mouseup(function(){ $(this).removeClass('ButtonDown') })
-		.mouseout(function(){$(this).removeClass('ButtonDown') })
+	TS.createButton('clearFinished')
 		.click(function(){
 			if(confirm('Are you sure you want to clear all finished tasks?')) {
 				$.post(TS.backendUrl(), {clearFinished: true});
 			}
 		});
 	
-	$('#clearAll')
-		.mousedown(function(){ $(this).addClass('ButtonDown') })
-		.mouseup(function(){ $(this).removeClass('ButtonDown') })
-		.mouseout(function(){$(this).removeClass('ButtonDown') })
+	TS.createButton('clearAll')
 		.click(function(){		
 			if(confirm('Are you sure you want to clear all tasks?')) {
 				$.post(TS.backendUrl(), {clearAll: true});
 			}
 		});
 	
-	$('#share')
-		.mousedown(function(){ $(this).addClass('ButtonDown') })
-		.mouseup(function(){ $(this).removeClass('ButtonDown') })
-		.mouseout(function(){$(this).removeClass('ButtonDown') });
+	TS.createButton('share');
 				
 	$('.ActiveTasks').sortable({
 		stop: function(e, ui) {
@@ -300,26 +316,10 @@ $(function(){
 		}
 	});
 	
-	var createToggle = function(name) { 
-		$('#' + name + 'Toggle')
-			.mousedown(function(){
-				$(this).addClass(TS[name] ? 'ToggleOnDown' : 'ToggleOffDown');
-			})
-			.click(function(){
-				$(this)
-					.removeClass(TS[name] ? 'ToggleOnDown ToggleOn' : 'ToggleOffDown ToggleOff')
-					.addClass(TS[name] ? 'ToggleOff' : 'ToggleOn');
-					
-				TS[name] = !TS[name];
-			})
-			.mouseup(function() {
-				$(this).removeClass('ToggleOnDown ToggleOffDown');
-			})
-	};
 	
-	createToggle('private');
-	createToggle('readOnly');
-	createToggle('addToBottom');
+	TS.createToggle('private');
+	TS.createToggle('readOnly');
+	TS.createToggle('addToBottom');
 		
 	$('#collapseHandle img').click(function(){
 		var panel = $('.TopPanel');

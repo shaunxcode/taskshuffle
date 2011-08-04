@@ -208,7 +208,7 @@ h1 { color: #6B6B6B; }
 	color: inherit;
 }
 
-.LoginBox input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"] {
 	height: 30px;
 	padding: 5px;
 	font-size: 19px;
@@ -221,7 +221,37 @@ h1 { color: #6B6B6B; }
 #registerEmail { width: 305px;}
 #registerPassword1 { margin-right: 6px; }
 #registerPassword1, #registerPassword2 { width: 141px; }
-#registerListName { width: 280px; margin-left: 10px;}
+#registerListName { width: 270px; margin-left: 10px;}
+
+#registerButton, #loginButton, #goButton {
+	height: 40px;
+	float: right;
+	margin-right:6px;
+	border: 0;
+	padding: 0;
+	color: transparent;
+	cursor: pointer;
+}
+
+#registerButton { 
+	width: 125px;
+	background-image: url(../images/register_button.png);
+}
+
+#loginButton { 
+	width: 95px;
+	background-image: url(../images/login_button.png);
+}
+
+#goButton {
+	width: 82px;
+	background-image: url(../images/go_button.png);
+	float: right;
+	margin-right: 0;
+	margin-left: 6px;
+}
+
+#registerButton.ButtonDown, #loginButton.ButtonDown { background-position: 0px 40px }
 
 #loginEmail { width: 305px;}
 #loginPassword {width: 200px;}
@@ -231,6 +261,7 @@ h1 { color: #6B6B6B; }
 	font-size: 110%;
 }
 
+#loginRememberToggle { cursor: pointer; }
 #loginBoxBottom { 
 	text-align: center;
 	font-size: 110%;
@@ -250,5 +281,7 @@ h1 { color: #6B6B6B; }
 	text-align: center;
 }
 
+#noTimeForm { width: 528px; margin-left: auto; margin-right: auto;}
 #noTimeListName { width: 425px; height: 30px; font-size: 19px; color: inherit;}
 #noTime { font-size: 115%; margin-bottom: 10px;}
+

@@ -30,10 +30,10 @@
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="chosen/chosen.jquery.js"></script>
+	<script type="text/javascript" src="js/taskshuffle.js"></script>
 </head>
 <body>
 <?php if(isset($_SESSION['user'])) { ?>
-	<script type="text/javascript" src="js/taskshuffle.js"></script>
 	<script type="text/javascript">
 		$(function(){
 			TS.name = <?php echo json_encode($file); ?>;
@@ -91,9 +91,16 @@
 		<img src="images/745kman.png" id="man" />
 	</div>
 <?php } else  { ?>
+	<script type="text/javascript">
+		$(function(){
+			TS.createButton('registerButton');
+			TS.createButton('loginButton');
+			TS.createToggle('loginRemember');
+		});
+	</script>
 	<div class="container" id="loginContainer">
 		<div class="span-24 first last LoginHeader">
-			<img src="images/title_2.png" width="465"/>
+			<img src="images/splash_logo.png" />
 		</div>
 		<div class="LoginBox span-12 first">
 			<h3>Create your free account</h3>
@@ -104,7 +111,7 @@
 				<input type="password" id="registerPassword1" name="registerPassword1" />
 				<input type="password" id="registerPassword2" name="registerPassword2" />
 				<input type="text" id="registerListName" name="registerListName" />
-				<input type="submit" value="Register" name="Register" />
+				<input type="submit" value="Register" id="registerButton" />
 			</form>
 		</div>
 		<div class="LoginBox span-12 last">
@@ -114,7 +121,7 @@
 				<input type="text" id="loginEmail" name="loginEmail" />
 				<label for="loginPassword">Password</label>
 				<input type="password" id="loginPassword" name="loginPassword"/>
-				<input type="submit" value="Login" />
+				<input type="submit" value="Login" id="loginButton" />
 				<div id="loginRememberGroup">
 					<div class="ToggleGroup" id="loginRemember">
 						<span class="ToggleLabel">Stay signed in on this computer?</span>
@@ -129,8 +136,10 @@
 		<div class="span-24 first last" id="loginFooter">
 			<h3>No time to Register?! Start a list right away!</h3>
 			<div id="noTime">You must register an account to have more than one list</div>
-			<input type="text" id="noTimeListName" />
-			<input type="submit" value="Go!" />
+			<form method="POST" id="noTimeForm">
+				<input type="text" id="noTimeListName" />
+				<input type="submit" value="Go!" id="goButton"/>
+			</form>
 	</div>
 <?php } ?>
 </body>
