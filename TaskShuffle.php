@@ -7,6 +7,7 @@ const SALT = 'TaskShizzufIzzle';
 require_once 'persysiphus.php';
 use \Persysiphus\Collection;
 \Persysiphus\dataDir(dirname(__FILE__) . '/data/');
+date_default_timezone_set('America/Denver'); 
 
 class TaskShuffle {
 	public static function register($email, $password) {
@@ -24,10 +25,21 @@ class TaskShuffle {
 			return $User->create(array(
 				'email' => $email,
 				'password' => md5(SALT . $password), 
+				'score' => 0,
 				'lists' => array()));
 		}
 	}
-	
+
+	public static function saveUser($data) {
+		if(!is_object($data)) {
+			$data = (object)$data;
+		}
+		
+		if(Session::uid() == $data->id || Session::isAdmin()) {
+			Collection::User()->update($data);
+		}
+	}
+		
 	public static function authenticate($email, $password) {
 		if($user = Collection::User()->getFirstBy('email', $email)) {
 			if($user->password == md5(SALT . $password)) {
@@ -59,6 +71,57 @@ class TaskShuffle {
 		}
 	}
 	
+	public static function verifyItem($item) {
+		static $options = array(
+			'id', 
+			'user', 
+			'task', 
+			'complete',
+		 	'completionDate', 
+			'deleted', 
+			'creationDate', 
+			'deletionDate', 
+			'orderBy');
+		
+		foreach(array_keys($item) as $key) {
+			if(!in_array($key, $options)) {
+				die("$key is invalid");
+			}
+		}
+		
+		foreach($options as $key) {
+			if(!isset($item[$key])) {
+				$item[$key] = null;
+			}
+		}
+		return (object)$item;
+	}
+	
+	public static function saveListItem($uqn, $item) {
+		$user = self::getUser(Session::uid());
+		
+		if($item = self::verifyItem($item) && ($list = self::getListByUQN($uqn))) {
+			if(!empty($item->id)) {
+				if($item->deleted) {
+					$list->itemsTotal--;
+				}
+				
+				if($item->complete) {
+					$item->completionDate = date('m/d/Y H:i:s');
+					$list->itemsComplete++;
+					$user->score++;
+					self::saveUser($user);
+				}
+				
+				$list->update($item);
+			}
+			else {				
+				$list->create($item);
+				$list->itemsTotal++;
+			}
+		}
+	}
+	
 	public static function setListPrivacy($uqn, $state) {
 		return self::getListByUQN($uqn)->private = $state;
 	}
@@ -77,6 +140,23 @@ class TaskShuffle {
 	
 	public static function emailDistinct($email) {
 		return !(bool)Collection::User()->getBy('email', $email);
+	}
+	
+	public static function clearAllListItems($uqn) {
+		self::getListByUQN($uqn)->filterThenSave(function($item) {
+			return false;
+		});
+	}
+	
+	public static function clearAllFinishedListItems($uqn) {
+		self::getListByUQN($uqn)->filterThenSave(function($item) {
+			return !$item->complete;
+		});
+	}
+	
+	public static function changeListItemOrder($uqn, $after, $item) {
+		$item = TaskShuffle::verifyItem($item);
+		self::getListByUQN($uqn)->changeOrder($after, $item);
 	}
 }
 
@@ -106,38 +186,34 @@ class Errors {
 	}
 }
 
+class NonMatch {}
 function applyHandler($handler, $data) {
-	try { 
-		$meta = new \ReflectionFunction($handler);
-		$args = array();
-		foreach($meta->getParameters() as $param) {
-			if(isset($data[$param->getName()])) {
-				$args[] = __boolCheck($data[$param->getName()]);
-			} else if($param->isOptional()) {
-				$args[] = $param->getDefaultValue();
-			} else {
-				throw new \Exception("Missing argument " . $param->getName());
-			}
+	$meta = new \ReflectionFunction($handler);
+	$args = array();
+	foreach($meta->getParameters() as $param) {
+		if(isset($data[$param->getName()])) {
+			$args[] = __boolCheck($data[$param->getName()]);
+		} else if($param->isOptional()) {
+			$args[] = $param->getDefaultValue();
+		} else {
+			return new NonMatch;
 		}
-		return call_user_func_array($handler, $args);
-	} catch (\Exception $e) {
-		Errors::add($e->getMessage());
 	}
+	return call_user_func_array($handler, $args);
 }
 
 function HandlePost($postName, $handler) {
 	if(isset($_POST[$postName])) {
-		$result = applyHandler($handler, $_POST);
-		if(Errors::doExist()) {
-			return Errors::getAll();
-		}
-		
+		$result = applyHandler($handler, $_POST);		
 		return $result;
 	}
 }
 
 function HandleGet($paramName, $handlers) {
 	if(isset($_GET[$paramName])) {
+		if(is_callable($handlers)) {
+			return applyHandler($handlers, $_GET);
+		}
 		if(isset($handlers[$_GET[$paramName]])) {
 			return applyHandler($handlers[$_GET[$paramName]], $_GET);
 		}
@@ -146,13 +222,19 @@ function HandleGet($paramName, $handlers) {
 
 function HandlePostJSON($paramName, $handler) {
 	if(isset($_POST[$paramName])) {
-		die(json_encode(HandlePost($paramName, $handler)));
+		$result = HandlePost($paramName, $handler);
+		if(!$result instanceof NonMatch) {
+			die(json_encode($result));
+		}
 	}
 }
 
 function HandleGetJSON($paramName, $handlers) {
 	if(isset($_GET[$paramName])) {
-		die(json_encode(HandleGet($paramName, $handlers)));
+		$result = HandleGet($paramName, $handlers);
+		if(!$result instanceof NonMatch) {
+			die(json_encode($result));
+		}
 	}
 }
 

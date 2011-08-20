@@ -32,9 +32,6 @@ $(function(){
 		
 		active: true,
 		name: false,
-		backendUrl: function() { 
-			return 'backend.php?file=' + TS.name;
-		},
 		nameDefault: 'Start typing a new item here...',
 		user: 'test',
 		timestamp: false,
@@ -51,8 +48,10 @@ $(function(){
 			$('#man').animate({top: 127, visibility: 'visible'});
 		},
 		
-		save: function(item) {
-			$.post(TS.backendUrl(), {item: item});
+		save: function(method, item) {
+			var data = {item: item, uqn: TS.name};
+			data[method] = true;
+			$.post('backend.php', data);
 		},
 		
 		drawUser: function(user) {
@@ -79,9 +78,9 @@ $(function(){
 						}
 					})
 					.click(function() {
-						item.complete = item.complete == 'true' ? 'false' : 'true';
+						item.complete = !item.complete;
 						TS.toggleComplete(item);
-						TS.save(item);
+						TS.save('update', item);
 					}))
 				.append($('<div />')
 					.addClass('TaskContent')
@@ -92,7 +91,8 @@ $(function(){
 								TS.stopClick = false;
 								return;
 							}
-							if(TS.tasks[item.id].complete == 'true') {
+							
+							if(TS.tasks[item.id].complete) {
 								return;
 							}
 							
@@ -133,7 +133,7 @@ $(function(){
 		
 		toggleComplete: function(item) {							
 			var view = $('#task-' + item.id);
-			if(item.complete == 'true') { 
+			if(item.complete) { 
 				if(!view.hasClass('TaskComplete')) {
 					view.addClass('TaskComplete');
 					$('> img', view).attr('src', 'images/box_checked.png');
@@ -159,8 +159,8 @@ $(function(){
 		
 		connect: function() {
     	   $.get(
-	    		TS.backendUrl(),
-		       	{timestamp: TS.timestamp},
+	    		'backend.php',
+		       	{timestamp: TS.timestamp, uqn: TS.name},
 		       	function(response) {
 					var updated = false;
 					var ids = {};
@@ -277,10 +277,7 @@ $(function(){
 				return;
 			}
 		
-			TS.save({
-				user: TS.user, 
-				task: task, 
-				complete: false});
+			TS.save('create', {task: task});
 
 			$('.NewTask').val('').focus();
 		});
@@ -288,14 +285,14 @@ $(function(){
 	TS.createButton('clearFinished')
 		.click(function(){
 			if(confirm('Are you sure you want to clear all finished tasks?')) {
-				$.post(TS.backendUrl(), {clearFinished: true});
+				$.post('backend.php', {clearFinished: true});
 			}
 		});
 	
 	TS.createButton('clearAll')
 		.click(function(){		
 			if(confirm('Are you sure you want to clear all tasks?')) {
-				$.post(TS.backendUrl(), {clearAll: true});
+				$.post('backend.php', {clearAll: true});
 			}
 		});
 	
@@ -308,7 +305,7 @@ $(function(){
 			
 			var prev = item.prev();
 
-			$.post(TS.backendUrl(), {
+			$.post('backend.php', {
 				after: prev.length == 0 ? false : prev.data('taskId'),
 				item: TS.tasks[item.data('taskId')]
 			});

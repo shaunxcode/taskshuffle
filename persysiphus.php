@@ -106,6 +106,33 @@ class Collection {
 		return dataDir() . $this->name;
 	}
 
+	public function now() {
+		return date('m/d/y H:i:s');
+	}
+	
+	public function filterThenSave($func) {
+		file_put_contents(
+			$this->getFileName(), 
+			implode(
+				",\n", 
+				array_map(
+					'json_encode',
+					$this->filter($func))));
+
+		return $this;
+	}
+	
+	public function delete($data) {
+		$file = $this->getFileName();
+		return $this->filterThenSave(function($item) use($data, $file) { 
+			if($item->id == $data['id']) {
+				Collection($file . '.deleted')->create($data);
+				return false;
+			}
+			return true;
+		});
+	}
+	
 	public function update($data) {
 		$file = '';
 		foreach($this->getAll() as $record) { 
@@ -123,6 +150,7 @@ class Collection {
 		$data = (object)$data;
 		$data->id = $this->info->id++;
 		$this->info->save();
+		$data->creationDate = $this->now();
 		file_put_contents($this->fileName(), json_encode($data) . ",\n", FILE_APPEND);
 		return $data;
 	}
@@ -151,6 +179,34 @@ class Collection {
 	public function getFirstBy($field, $value) {
 		$records = $this->getBy($field, $value);
 		return empty($records) ? false : reset($records);
+	}
+
+	public function changeOrder($after, $data) {
+		$order = 0;
+		
+		$data = (object)$data;
+		
+		$file = '';
+		if(!$after) {
+			$data->orderBy = $order++;
+			$file .= json_encode($data) . ",\n";	
+		}
+
+		foreach($this->getAll() as $item) {
+			if($item->id == $data->id) {
+				continue;
+			}
+
+			$item->orderBy = $order++;
+			$file .= json_encode($item) . ",\n";
+
+			if($item->id == $after) {
+				$item->orderBy = $order++;
+				$file .= json_encode($item) . ",\n";
+			}
+		}
+		
+		file_put_contents($filename, $file);	
 	}
 	
 	public static function __callStatic($what, $with) {
