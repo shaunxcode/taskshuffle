@@ -1,1 +1,20 @@
-task shuffle
+task shuffle:
+
+to start run taskshuffle-server from your root task directory - it runs on port 1337 so go to 
+http://127.0.0.1:1337 in your browser to see the interface.
+
+**TODO add notion of passing in port and other settings to server
+
+reads .task files 
+
+human readable format so you can still edit w/ vim or what not
+
+just add tasks, separated by line, completed tasks commented out w/ # at start
+
+e.g.
+
+first task
+second task
+#done task
+
+and you're done. It scans all sub-dirs from location it started and lists them in upper right

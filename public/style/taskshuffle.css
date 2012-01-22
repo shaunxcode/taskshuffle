@@ -1,0 +1,340 @@
+.Rounded { 
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+}
+
+.Shadow {
+  -moz-box-shadow: 0px 3px 3px #ccc;
+  -webkit-box-shadow: 0px 3px 3px #ccc;
+  box-shadow: 0px 3px 3px #ccc;
+}
+
+h1 { color: #6B6B6B; } 
+
+.NewTask, .NewList { 
+	width: 621px; 
+	font-family: inherit; 
+	font-size: 2.2em;
+	background: #fffaba;
+	color: #6B6B6B;
+	padding: .2em;
+	margin-right: 10px;
+	float: left;
+	display: block;
+}
+
+.NewList { width: 400px; margin-right: 10px !important; }
+
+#newTaskPlus, #newListPlus { 
+	display: block;
+	float: left;
+	cursor: pointer;
+}
+
+#newListPlus { margin-top:13px; }
+
+.UserMenu {
+	float: right;
+	color: #999;
+	margin-top: 5px; 
+}
+
+.LeftColumn { padding-top: 15px; padding-bottom: 10px; }
+.RightColumn { text-align: right; padding-top: 15px; padding-bottom: 10px; }
+
+
+#ListComboContainer { width: 210px; float: right; margin-bottom: 15px; margin-top: 15px;}
+#ListComboContainer select { width: 210px; }
+
+.TaskListButtons { height: 22px; display: none; }
+.TaskListButtons img {
+	margin-left: 20px;
+	vertical-align: middle;
+}
+
+.TaskListButtons {
+	color: #999;
+}
+
+.TaskListButtons div {
+	display: inline-block;
+	cursor: pointer;
+	padding-bottom: 4px;
+}
+
+.ToggleGroup {
+	float: left;
+	margin-right:15px;
+}
+
+#share {
+	float: left;
+	padding: 0; 
+	width: 48px;
+	height: 22px;
+	background-image: url(../images/share.png);
+	margin-right: 5px;
+}
+
+#clearFinished {
+	padding: 0; 
+	float: right;
+	width: 127px;
+	height: 22px;
+	background-image: url(../images/clear_completed.png);
+	margin-right: 5px;
+	margin-top: 3px;
+	cursor: pointer;
+}
+
+#clearAll {
+	padding: 0;
+	float: right;
+	width: 77px;
+	height: 22px;
+	background-image: url(../images/clear_all.png);
+	margin-top: 3px;
+	cursor: pointer;
+}
+
+.TrashList {
+	padding: 0;
+	float: right;
+	width: 76px;
+	height: 22px;
+	background-image: url(../images/trash_list.png);
+	cursor: pointer;
+}
+
+.ButtonDown { background-position: 0px 21px }
+
+.ToggleLabel { 
+	float: left;
+	padding-bottom:6px;
+	padding-right: 4px;
+	font-weight: normal;
+}
+
+.Toggle { 
+	background-image: url(../images/on-off.png);
+	width: 49px;
+	height: 22px;
+	overflow: hidden;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.ToggleOn { background-position: 0px 0px; }
+.ToggleOnDown { background-position: 49px 0px; }
+.ToggleOff { background-position: 0px 22px; }
+.ToggleOffDown { background-position: 49px 22px; }
+
+#collapseHandle { 
+	border-top: 1px solid #eee; 
+	padding-right: 15px;
+	padding-bottom: 30px;
+}
+
+#collapseHandle img { cursor: pointer; display: block; float: right; }
+
+.Tasks { 
+	background-image: url(../images/diagonals.png);
+	background-repeat: repeat;
+	margin-bottom: 100px;
+	overflow: hidden;
+	z-index: 10;
+	position: absolute;
+	width: 100%;
+}
+
+.TaskList { 
+	padding: .5em;
+	font-size: 3em; 
+	list-style-type: none;
+	margin: 0;
+	padding-bottom: 0;
+}
+
+.CompletedTasks { 
+	padding-top: 0;
+	padding-bottom: 0;
+	margin-top: .5em;
+	margin-bottom: 120px;
+}
+
+.TaskList button.ui-button { width: .8em; margin-right: .3em;}
+.TaskList button span.ui-button-icon-primary { left: 0.2em;}
+.TaskList li { background: #fff; margin-bottom: .25em; padding: .25em; padding-left: .15em; border: 1px solid #eee;}
+.TaskList li > img { display: block; float: left; margin-top: 0em; cursor: pointer;}
+.TaskList .DragHandle { background-image: url(../images/handle.png); background-repeat: repeat-y; width: 6px; height: 1.3em; margin-right: .15em; float: left; cursor: move;}
+.TaskList li div.TaskContent { display: block; float: right; color: #5e5e5e; width: 828px;}
+.TaskList li div.TaskContent > span { color: #6B6B6B; cursor: pointer; line-height: 1em; display: block; width: 800px;}
+.TaskList li div.TaskContent > input { display: block; font-size: inherit; font-family: inherit; width: 800px; margin: 0; color: inherit; background: #fffaba; border: 1px solid #ccc;}
+.TaskList li div.TaskContent img { float: right; bottom: 0; cursor: pointer; }
+.TaskList li.TaskComplete { background: #f2f2f2; }
+.TaskList li.TaskComplete .TaskContent > span { color: #d4d4d4;}
+.TaskList li.TaskComplete .TaskContent > span.CompletionDate { font-size: .5em; margin-right: .5em;}
+
+.CompletedTasks .DragHandle { visibility: hidden; }
+
+.container { position: relative; }
+#man { 
+	visibility: hidden; 
+	position: absolute; 
+	left: 20px;
+	top: 175px;
+	z-index: 2; 
+	cursor: pointer;
+}
+
+#loginContainer h3 {
+	font-size: 27px;
+	margin: 0;
+	margin-bottom: 18px;
+	text-align: center;
+	color: #757575;	
+}
+
+.LoginHeader { 
+	text-align: center; 
+	margin-top: 60px;
+	margin-bottom: 80px;
+}
+
+.LoginBox { color: #757575; }
+
+.LoginBox form { 
+	width: 430px;
+	background: #f4f4f4;
+	padding: 10px;
+	border: 0px;
+	-moz-box-shadow: 0px -3px 3px #b0b0b0;
+	-webkit-box-shadow: 0px -3px 3px #b0b0b0;
+	box-shadow: 0px -3px 3px #b0b0b0;
+	color: inherit;
+}
+
+.LoginBox form label { 
+	font-size: 19px;
+	display: inline-block;
+	width: 100px;
+	padding-right: 5px;
+	text-align: right;
+	color: inherit;
+}
+
+#loginContainer span.required { display: none; }
+
+#loginContainer input[type="text"], #loginContainer input[type="password"] {
+	height: 30px;
+	padding: 5px;
+	font-size: 19px;
+	border: 1px solid #c4c4c4;
+	margin-top: 0px;
+	margin-bottom: 0.5em;
+	color: inherit;
+}
+
+#RegisterForm_email { width: 305px;}
+#RegisterForm_password1 { margin-right: 6px; }
+#RegisterForm_password1, #RegisterForm_password2 { width: 141px; }
+#RegisterForm_listName { width: 270px; margin-left: 10px;}
+
+#loginRemember > label[for="LoginForm_rememberMe"] { font-size: 100%; }
+
+#registerButton, #loginButton, #goButton {
+	height: 40px;
+	float: right;
+	margin-right:6px;
+	border: 0;
+	padding: 0;
+	color: transparent;
+	cursor: pointer;
+	background: inherit;
+}
+
+#registerButton { 
+	width: 125px;
+	background-image: url(../images/register_button.png);
+}
+
+#loginButton { 
+	width: 95px;
+	background-image: url(../images/login_button.png);
+}
+
+#goButton {
+	width: 82px;
+	background-image: url(../images/go_button.png);
+	float: right;
+	margin-right: 0;
+	margin-left: 6px;
+}
+
+#registerButton.ButtonDown, #loginButton.ButtonDown, #goButton.ButtonDown { background-position: 0px 40px }
+
+#LoginForm_email { width: 305px;}
+#LoginForm_password {width: 200px;}
+
+#loginRememberGroup { 
+	margin-left: 12px;
+	font-size: 110%;
+}
+
+#loginRememberToggle { cursor: pointer; }
+#loginBoxBottom { 
+	text-align: center;
+	font-size: 110%;
+	margin-bottom:5px;
+}
+
+.LoginBoxLink { 
+	display: block;
+	float: right;
+	padding-bottom:6px;
+	padding-right: 4px;
+	margin-left: 15px; 
+}
+
+#loginFooter { 
+	margin-top: 40px;
+	text-align: center;
+}
+
+#noTimeForm { width: 528px; margin-left: auto; margin-right: auto;}
+#noTimeListName { width: 425px; height: 30px; font-size: 19px; color: inherit;}
+#noTime { font-size: 115%; margin-bottom: 10px;}
+
+
+.LoginErrors {
+	text-align: center; 
+	color: #ff0000;
+	font-size: 175%;
+	margin-bottom: 1em;
+	font-weight: bold;
+}
+
+#listsContainer {
+	color: #777777;
+}
+
+#listsContainer > .container {
+	padding-top: 10px;
+	padding-bottom: 14px;
+	border-bottom: 1px solid #dbdbdb;
+}
+
+#listsContainer h3 {
+	display: inline-block;
+	margin-right: 5px;
+	color: inherit;
+	font-size: 21px;
+	width: 200px;
+	margin-bottom: 10px;
+}
+
+#listsContainer a {
+	margin-right: 5px;
+}

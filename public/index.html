@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+	<title>TaskShuffle</title> 
+	<link rel="shortcut icon" href="/favicon.ico"/> 
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css" type="text/css" media="all" /> 
+	<link rel="stylesheet" href="style/blueprint/screen.css" type="text/css" media="all" /> 
+	<link rel="stylesheet" href="style/taskshuffle.css" type="text/css" media="all" /> 
+    <link rel="stylesheet" href="chosen/chosen.css" /> 
+	<link rel="apple-touch-icon" href="ts_icon.png" />	
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script> 
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script> 
+	<script type="text/javascript" src="chosen/chosen.jquery.js"></script> 
+	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="js/taskshuffle.js"></script>
+	<title>Tizask Shizuffle</title>
+</head>
+<body>
+
+<div class="container">
+	<div class="TopPanel span-24">
+		<div class="LeftColumn span-18 first">
+			<h1 class="ListName">Name of List</h1>
+			<div class="clear"></div>
+			<div class="NewItemControl">
+				<input class="Rounded NewTask">
+				<img src="images/plus_2.png" id="newTaskPlus" />
+			</div>
+		</div>
+		<div class="RightColumn span-6 last">
+			<div class="clear"></div>
+			<div id="ListComboContainer"></div>
+			<div id="clearAll"></div>
+			<div id="clearFinished"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+
+	<div id="collapseHandle"><img src="images/collapse-handle.png" /></div>
+
+	<div class="Tasks Rounded">
+		<ul class="TaskList ActiveTasks"></ul>
+		<ul class="TaskList CompletedTasks"></ul>
+	</div>
+</div>
+
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</body>
+</html>

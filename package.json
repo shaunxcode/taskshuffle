@@ -1,0 +1,20 @@
+{
+  "name": "taskshuffle",
+  "description": "flat file .tasks editor for your browser",
+  "version": "0.0.2",
+  "author": "Shaun Gilchrist <shaunxcode@gmail.com>",
+  "contributors": [ 
+    { "name": "Shaun Gilchrist", "email": "shaunxcode@gmail.com" }, 
+    { "name": "Erik Flowers", "email": "eflowers@gmail.com" }
+  ],
+  "dependencies": {
+    "crypto": "latest",
+    "express": "latest",
+    "file": "latest",
+    "socket.io": "latest"
+  },
+  "keywords": ["tasks"],
+  "repository": "git://github.com/shaunxcode/taskshuffle",
+  "main": "index",
+  "bin": { "taskshuffle-server": "./bin/taskshuffle-server" }
+}
